@@ -1,0 +1,30 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client",
+    "devStart": "NODE_ENV=development concurrently \"npm run server \"npm run client"
+  },
+  "author": "Anastasia Kladova",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "js": "^0.1.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.9.0"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "nodemon": "^2.0.20"
+  }
+}
