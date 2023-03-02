@@ -10,7 +10,7 @@ import AppIconButton from "../Buttons/AppIconButton";
 import { setAppMode } from "../../store/slices/mainSlice";
 import { isAppModeSelector } from "../../store/selectors/mainSelectors";
 import { changeLanguage } from "../../utils/changeLanguage";
-import EmojiFlagsIcon from "@mui/icons-material/EmojiFlags";
+import { EmojiFlags } from "@mui/icons-material";
 import i18next from "i18next";
 
 const ButtonGroup = styled(Box)({
@@ -41,7 +41,7 @@ const NavButtons: React.FC = () => {
         color="inherit"
         onClick={() => i18next.changeLanguage("en")}
       >
-        <EmojiFlagsIcon />
+        <EmojiFlags />
       </IconButton>
       <IconButton
         aria-label="change mode"
