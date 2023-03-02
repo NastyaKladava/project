@@ -10,6 +10,20 @@ export const REQAUTHMESSAGE = "You aren't logged in!";
 
 export const DATEFORMAT = "DD/MM/YYYY";
 
+export const NOTOPTIONALFIELDS = [
+  "_id",
+  "userId",
+  "createdAt",
+  "updatedAt",
+  "collectionId",
+  "__v",
+  "itemTitle",
+  "itemTags",
+  "fromCollection",
+  "likes",
+  "comments",
+];
+
 export const EDITOROPTIONS = [
   "inline",
   "blockType",

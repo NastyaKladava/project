@@ -14,6 +14,8 @@ const StyledStack = styled(Stack)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
+  alignItems: "flex-start",
+  flexWrap: "wrap",
   gap: theme.spacing(5),
 }));
 

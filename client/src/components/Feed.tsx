@@ -25,13 +25,7 @@ const Feed: React.FC = () => {
       </Typography>
     </StyledBoxNoColections>
   ) : (
-    <Grid
-      container
-      spacing={10}
-      p={{ xs: 0, md: 2 }}
-      flex={4}
-      alignItems={"flex-start"}
-    >
+    <Grid container spacing={10} p={{ xs: 0, md: 2 }} flex={4}>
       {trendCollections.map((collection, index) => (
         <CollectionCard key={index} {...collection} xs={12} sm={6} md={4} />
       ))}
