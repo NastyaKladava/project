@@ -18,6 +18,8 @@ i18n
         "path",
         "subdomain",
       ],
+      lookupQuerystring: "lang",
+      lookupLocalStorage: "lang",
       caches: ["localStorage"],
     },
     backend: { loadPath: "/assets/locales/{{lng}}/translation.json" },
