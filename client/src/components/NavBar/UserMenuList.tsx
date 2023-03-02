@@ -24,6 +24,7 @@ import localStorageKeys from "../../shared/constants/localStorageKeys";
 import { setIsLoggedIn } from "../../store/slices/userSlice";
 import { setAppMode } from "../../store/slices/mainSlice";
 import { isAppModeSelector } from "../../store/selectors/mainSelectors";
+import { changeLanguage } from "../../utils/changeLanguage";
 
 const UserMenuList: React.FC = () => {
   const navigate = useNavigate();
@@ -70,9 +71,7 @@ const UserMenuList: React.FC = () => {
           <ListItemIcon>
             <Language />
           </ListItemIcon>
-          <Switch
-          // onChange={(e) => setMode(mode === "light" ? "dark" : "light")}
-          />
+          <Switch onChange={changeLanguage} />
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>

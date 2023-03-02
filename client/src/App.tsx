@@ -21,7 +21,6 @@ import { isAppModeSelector } from "./store/selectors/mainSelectors";
 const App: React.FC = () => {
   const isAppMode = useAppSelector(isAppModeSelector);
 
-  console.log(isAppMode);
   const { theme } = useAppTheme();
   return (
     <Routes>

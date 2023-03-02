@@ -24,6 +24,7 @@ import { IGridColCardProps } from "../../shared/types";
 import CollectionOptionsMenu from "../Menu/CollectionOptionsMenu";
 import { useAppSelector } from "../../hooks/commonHooks";
 import { isLoggedInSelector } from "../../store/selectors/userSelector";
+import { useTranslation } from "react-i18next";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   // height: "100%",
@@ -59,7 +60,7 @@ const CollectionCard: React.FC<ICollection & IGridColCardProps> = ({
   const openOptionsMenu = (e: any, id: string) => {
     setAnchorOptionMenu([e.currentTarget, id]);
   };
-
+  const { t } = useTranslation();
   return (
     <Grid item xs={xs} sm={sm} md={md}>
       <StyledCard>
@@ -98,7 +99,8 @@ const CollectionCard: React.FC<ICollection & IGridColCardProps> = ({
         />
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography variant="body2" color="text.secondary" gutterBottom>
-            Topic: {collectionTopic}
+            {t("welcome")}
+            {collectionTopic}
           </Typography>
           <Typography variant="body2" color="text.secondary" gutterBottom>
             Email: {collectionMail}

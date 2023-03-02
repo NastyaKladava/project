@@ -9,6 +9,7 @@ import AppButton from "../Buttons/AppButton";
 import AppIconButton from "../Buttons/AppIconButton";
 import { setAppMode } from "../../store/slices/mainSlice";
 import { isAppModeSelector } from "../../store/selectors/mainSelectors";
+import { changeLanguage } from "../../utils/changeLanguage";
 
 const ButtonGroup = styled(Box)({
   display: "flex",
@@ -26,7 +27,11 @@ const NavButtons: React.FC = () => {
 
   return (
     <ButtonGroup>
-      <IconButton aria-label="change language" color="inherit">
+      <IconButton
+        aria-label="change language"
+        color="inherit"
+        onClick={changeLanguage}
+      >
         <Language />
       </IconButton>
       <IconButton

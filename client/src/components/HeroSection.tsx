@@ -16,7 +16,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   position: "relative",
   padding: `${theme.spacing(25)} 0`,
   backgroundColor: theme.palette.common.white,
-  color: "fff",
+  color: theme.palette.info.light,
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
