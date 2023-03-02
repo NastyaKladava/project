@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
-const JWTSECRET = process.env.JWTSECRET;
+const config = require("config");
+const JWTSECRET = config.get("jwtSecret");
+// const JWTSECRET = process.env.JWTSECRET;
 
 const verifyToken = (req, res, next) => {
   const accessToken = req.header("accessToken") || req.body.headers.accessToken;

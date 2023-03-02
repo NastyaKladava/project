@@ -1,0 +1,5 @@
+{
+  "port": 3001,
+  "mongoUri": "mongodb+srv://root:12345root@project.vc7e12y.mongodb.net/?retryWrites=true&w=majority",
+  "jwtSecret": "jwtSecret"
+}

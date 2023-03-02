@@ -2,14 +2,18 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require("path");
 const cors = require("cors");
+const config = require("config");
 const app = express();
 
-require("dotenv").config();
+// require("dotenv").config();
 app.use(express.json({ extended: true }));
 app.use(cors());
 
-const PORT = process.env.PORT;
-const MONGO_URI = process.env.MONGO_URI;
+// const PORT = process.env.PORT;
+// const MONGO_URI = process.env.MONGO_URI;
+
+const PORT = config.get("port") || 3001;
+const MONGO_URI = config.get("mongoUri");
 
 const authRoute = require("./routes/auth");
 const userRoute = require("./routes/users");
