@@ -1,6 +1,6 @@
 import i18next from "i18next";
 
-const currentLanguage = localStorage.getItem("i18nextLng");
+const currentLanguage = localStorage.getItem("lang");
 
 export const changeLanguage = () => {
   console.log(currentLanguage);

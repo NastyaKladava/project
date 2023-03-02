@@ -8,7 +8,7 @@ i18n
   .use(LanguageDetector)
   .use(HttpApi)
   .init({
-    // fallbackLng: "en",
+    fallbackLng: "en",
     detection: {
       order: [
         "localStorage",
@@ -18,9 +18,11 @@ i18n
         "path",
         "subdomain",
       ],
-      lookupQuerystring: "lang",
-      lookupLocalStorage: "lang",
       caches: ["localStorage"],
+    },
+    debug: true,
+    interpolation: {
+      escapeValue: false,
     },
     backend: { loadPath: "/assets/locales/{{lng}}/translation.json" },
   });
