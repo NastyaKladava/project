@@ -1,10 +1,7 @@
 import React from "react";
 import { Avatar, Box, styled, Typography } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
-import { useForm } from "react-hook-form";
-import { useAppDispatch, useAppSelector } from "../hooks/commonHooks";
-import { userRegDataSelector } from "../store/selectors/userSelector";
-import { registerUser } from "../store/thunks";
+import { useAppDispatch } from "../hooks/commonHooks";
 import { useRegister } from "../hooks/registerHook";
 import SignUpForm from "../components/Forms/SignUpForm";
 import AppCenterContainer from "../components/Containers/AppCenterContainer";
@@ -19,14 +16,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 const SignUp: React.FC = () => {
   const dispatch = useAppDispatch();
-  const {
-    isUserError,
-    isUserLoading,
-    isUserSuccess,
-    isRegistered,
-    errorUserMessage,
-    successUserMessage,
-  } = useRegister();
+  const { errorUserMessage, successUserMessage } = useRegister();
 
   return (
     <AppCenterContainer>

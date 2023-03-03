@@ -31,9 +31,24 @@ export interface ICurUser {
   collections: ICollection[] | [];
 }
 
+export interface IUser {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  token: string;
+  status: string;
+  isAdmin: boolean;
+  collections: ICollection[] | [];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface IUserSlice {
   userRegData: IuserRegData;
   currentUser: null | ICurUser;
+  users: [] | IUser[];
   isUserLoading: boolean;
   isUserError: boolean;
   isUserSuccess: boolean;

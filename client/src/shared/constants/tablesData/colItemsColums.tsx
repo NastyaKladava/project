@@ -1,18 +1,13 @@
-import React, { useState } from "react";
-import { Delete, Update } from "@mui/icons-material";
-import { Box, IconButton } from "@mui/material";
+import React from "react";
 import {
   GridColDef,
   GridValueFormatterParams,
   GridValueGetterParams,
 } from "@mui/x-data-grid";
 import dayjs from "dayjs";
-import AppIconButton from "../../../components/Buttons/AppIconButton";
 import { ITableColumns } from "../../types";
 import { DATEFORMAT, NOTOPTIONALFIELDS } from "../common";
-import { useAppDispatch } from "../../../hooks/commonHooks";
 import ItemTableActions from "../../../components/Tables/TableActionBox/ItemTableActions";
-import { convertTags } from "../../../utils/convertTags";
 
 export const ColItemsTableColumns: GridColDef<ITableColumns>[] = [
   // { field: "_id", headerName: "Id", width: 150 },
@@ -28,21 +23,6 @@ export const ColItemsTableColumns: GridColDef<ITableColumns>[] = [
     headerName: "Item fields",
     width: 300,
     valueGetter: (params: GridValueGetterParams) => {
-      // const itemFields = Object.keys(params.row).filter(
-      //   (itemField) =>
-      //     itemField != "_id" &&
-      //     itemField != "userId" &&
-      //     itemField != "createdAt" &&
-      //     itemField != "updatedAt" &&
-      //     itemField != "collectionId" &&
-      //     itemField != "__v" &&
-      //     itemField != "itemTitle" &&
-      //     itemField != "itemTags" &&
-      //     itemField != "fromCollection" &&
-      //     itemField != "likes" &&
-      //     itemField != "comments" &&
-      //     itemField != "itemAuthor"
-      // );
       const itemFields = Object.keys(params.row).filter(
         (item) => !NOTOPTIONALFIELDS.indexOf(item)
       );
@@ -75,6 +55,7 @@ export const ColItemsTableColumns: GridColDef<ITableColumns>[] = [
         <ItemTableActions
           itemId={params.row._id}
           itemTitle={params.row.itemTitle}
+          firstName={params.row.firstName}
         />
       );
     },

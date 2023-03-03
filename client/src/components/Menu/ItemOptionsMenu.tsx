@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
 import { collectionsDataSelector } from "../../store/selectors/collectionSelector";
 import DeletePopover from "../Popovers/DeletePopover";
 import { deleteCollection, deleteCollectionItem } from "../../store/thunks";
+import { useTranslation } from "react-i18next";
 
 const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
   anchorEl,
@@ -15,6 +16,8 @@ const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
   currentElementId,
 }) => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+
   const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) =>
     setAnchorEl([null, null]);
 
@@ -59,7 +62,7 @@ const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
         anchorEl={anchorDeletePopover[0]}
         setAnchorEl={setAnchorDeletePopover}
         currentElementId={anchorDeletePopover[1]}
-        text={"Are you sure that you want to delete this item?"}
+        text={t("deleteColItemMessage")}
         deleteHandler={() => dispatch(deleteCollectionItem(menuId))}
       />
     </>

@@ -1,10 +1,14 @@
 import type { RootState } from "..";
-import { ICurUser, IuserRegData } from "../types";
+import { ICurUser, IUser, IuserRegData } from "../types";
 
 export const userRegDataSelector = (store: RootState): IuserRegData =>
   store.user.userRegData;
+
 export const curUserSelector = (store: RootState): ICurUser | null =>
   store.user.currentUser;
+
+export const usersSelector = (store: RootState): IUser[] | [] =>
+  store.user.users;
 
 export const isUserSuccessSelector = (store: RootState): boolean =>
   store.user.isUserSuccess;

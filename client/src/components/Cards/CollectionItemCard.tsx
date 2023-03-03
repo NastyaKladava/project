@@ -8,16 +8,13 @@ import {
   Collapse,
   Grid,
   IconButton,
-  IconButtonProps,
-  Paper,
   styled,
   Typography,
 } from "@mui/material";
-import { MoreVert, InsertComment, ExpandMoreSharp } from "@mui/icons-material";
+import { MoreVert, ExpandMoreSharp } from "@mui/icons-material";
 import { ICollectionItem } from "../../store/types";
 import { format } from "timeago.js";
 import { useNavigate } from "react-router-dom";
-import OptionsMenu from "../Menu/CollectionOptionsMenu";
 import { DATEFORMAT } from "../../shared/constants/common";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
@@ -26,12 +23,12 @@ import LikeButton from "../Buttons/LikeButton";
 import CommentForm from "../Forms/CommentForm";
 import Comment from "../Comment/Comment";
 import TagsBox from "../TagsBox";
-import { IExpandMoreProps } from "../../shared/types";
 import ExpandMore from "../ExpandMore";
 import CommentBox from "../Comment/CommentBox";
 import CommentButton from "./CommentButton";
 import ItemOptionsMenu from "../Menu/ItemOptionsMenu";
 import { isLoggedInSelector } from "../../store/selectors/userSelector";
+import { useTranslation } from "react-i18next";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   // height: "100%",
@@ -40,24 +37,19 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 const CollectionItemCard: React.FC<ICollectionItem> = ({ ...props }) => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const [anchorOptionMenu, setAnchorOptionMenu] = useState<
-    [null | HTMLAnchorElement, null | string]
-  >([null, null]);
-
-  const cardId: string = props._id;
-  console.log(cardId);
-
-  const commentsData = props.comments;
+  const { t } = useTranslation();
   const isLoggedIn = useAppSelector(isLoggedInSelector);
-  const [expanded, setExpanded] = useState<string | boolean>(false);
+  const cardId: string = props._id;
+  const commentsData = props.comments;
 
+  const [expanded, setExpanded] = useState<string | boolean>(false);
   const handleExpandClick = (i: string) => {
     setExpanded(expanded === i ? false : cardId);
   };
-
+  const [anchorOptionMenu, setAnchorOptionMenu] = useState<
+    [null | HTMLAnchorElement, null | string]
+  >([null, null]);
   const openOptionsMenu = (e: any, id: string) => {
     setAnchorOptionMenu([e.currentTarget, id]);
   };
@@ -72,6 +64,7 @@ const CollectionItemCard: React.FC<ICollectionItem> = ({ ...props }) => {
                 ariia-aria-label="more"
                 type="button"
                 onClick={(e) => openOptionsMenu(e, cardId)}
+                disabled={!isLoggedIn}
               >
                 <MoreVert />
               </IconButton>
@@ -88,83 +81,85 @@ const CollectionItemCard: React.FC<ICollectionItem> = ({ ...props }) => {
         />
 
         <CardContent>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            From collection: {props.fromCollection}
+          <Typography component="h3" color="text.secondary" gutterBottom>
+            {t("cardItem.fromCollection")}
+            {props.fromCollection}
           </Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Created by: {props.itemAuthor}
+          <Typography component="h3" color="text.secondary" gutterBottom>
+            {t("cardItem.createdBy")} {props.itemAuthor}
           </Typography>
           {props["page quantity"] && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Page quantity: {props["page quantity"]}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.pageQuantity")} {props.itemAuthor}{" "}
+              {props["page quantity"]}
             </Typography>
           )}
           {props.price && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Price: {props.price}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.price")} {props.price}
             </Typography>
           )}
           {props.volume && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Volume: {props.volume}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.volume")} {props.volume}
             </Typography>
           )}
           {props.author && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Author: {props.author}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.author")} {props.author}
             </Typography>
           )}
           {props.type && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Type: {props.type}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.type")} {props.type}
             </Typography>
           )}
           {props.genre && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Genre: {props.genre}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.genre")} {props.genre}
             </Typography>
           )}
           {props.descr && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Description {props.descr}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.descr")} {props.descr}
             </Typography>
           )}
           {props.comment && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Owner comment: {props.comment}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.ownerCom")} {props.comment}
             </Typography>
           )}
           {props["about author"] && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              About author: {props["about author"]}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.aboutAuthor")} {props["about author"]}
             </Typography>
           )}
           {props["publication date"] && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Publication date:
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.pubDate")}
               {dayjs(props["publication date"]).format(DATEFORMAT)}
             </Typography>
           )}
           {props["harvest year"] && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Harvest year:
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.harvest")}
               {dayjs(props["harvest year"]).format(DATEFORMAT)}
             </Typography>
           )}
           {props["is finished"] && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Is item finished by owner:
-              {props["is finished"]}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.isFinished")}
+              {t("yes")}
             </Typography>
           )}
           {props["is read"] && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Is item read by owner: {props["is read"]}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.isRead")} {t("yes")}
             </Typography>
           )}
           {props["is tried"] && (
-            <Typography variant="body2" color="text.secondary" gutterBottom>
-              Is item tried by owner: {props["is tried"]}
+            <Typography component="h4" color="text.secondary" gutterBottom>
+              {t("cardItem.isTried")} {t("yes")}
             </Typography>
           )}
           <TagsBox tags={props.itemTags} />

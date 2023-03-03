@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Box,
   List,
   ListItem,
   ListItemButton,
@@ -12,32 +11,33 @@ import {
   AccountBox,
   Home,
   ModeNight,
-  Person,
-  Settings,
-  Language,
   Logout,
   LightMode,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
 import localStorageKeys from "../../shared/constants/localStorageKeys";
-import { setIsLoggedIn } from "../../store/slices/userSlice";
+import { setIsAdmin, setIsLoggedIn } from "../../store/slices/userSlice";
 import { setAppMode } from "../../store/slices/mainSlice";
 import { isAppModeSelector } from "../../store/selectors/mainSelectors";
-import { changeLanguage } from "../../utils/changeLanguage";
+import { isAdminSelector } from "../../store/selectors/userSelector";
 
 const UserMenuList: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAppMode = useAppSelector(isAppModeSelector);
+  const isAdmin = useAppSelector(isAdminSelector);
 
   const handleLogOut = (e: React.ChangeEvent<HTMLInputElement>) => {
     localStorage.removeItem(localStorageKeys.TOKEN);
     dispatch(setIsLoggedIn(false));
+    dispatch(setIsAdmin(false));
     navigate("/");
   };
   const navigateToHome = () => navigate("/");
-  const navigateToProfile = () => navigate("/profile");
+  const navigateToProfile = () => {
+    isAdmin ? navigate("/users") : navigate("/profile");
+  };
   const changeAppMode = () => dispatch(setAppMode());
 
   return (
@@ -66,14 +66,14 @@ const UserMenuList: React.FC = () => {
           <Switch onChange={changeAppMode} />
         </ListItemButton>
       </ListItem>
-      <ListItem disablePadding>
+      {/* <ListItem disablePadding>
         <ListItemButton>
           <ListItemIcon>
             <Language />
           </ListItemIcon>
           <Switch onChange={changeLanguage} />
         </ListItemButton>
-      </ListItem>
+      </ListItem> */}
       <ListItem disablePadding>
         <ListItemButton>
           <ListItemIcon>

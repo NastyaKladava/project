@@ -5,7 +5,8 @@ import { useAppDispatch, useAppSelector } from "../hooks/commonHooks";
 import { useUpload } from "../hooks/uploadHook";
 import { CloudUpload } from "@mui/icons-material";
 import { imgUploadProgSelector } from "../store/selectors/collectionSelector";
-import { relative } from "path";
+import ProgressLoader from "./Loaders/ProgressLoader";
+import { useTranslation } from "react-i18next";
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   flex: 1,
@@ -33,21 +34,15 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 const DragItem: React.FC = () => {
   const dispatch = useAppDispatch();
-  const imageUploadProgress = useAppSelector(imgUploadProgSelector);
+  const { t } = useTranslation();
   const { uploadFile } = useUpload();
+  const imageUploadProgress = useAppSelector(imgUploadProgSelector);
+
   const onDrop = useCallback((acceptedFiles: any) => {
     uploadFile(acceptedFiles[0]);
   }, []);
 
-  const {
-    acceptedFiles,
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isFocused,
-    isDragReject,
-    isDragAccept,
-  } = useDropzone({
+  const { getRootProps, getInputProps, isDragReject } = useDropzone({
     onDrop,
     multiple: false,
     accept: { "image/png": [".png"], "image/jpeg": [".jpg", ".jpeg"] },
@@ -58,16 +53,14 @@ const DragItem: React.FC = () => {
       <input id="collectionImgage" type="file" {...getInputProps()} />
       {imageUploadProgress > 0 ? (
         <Typography textAlign="center">
-          Uploading {imageUploadProgress} %
+          <ProgressLoader value={imageUploadProgress} />
         </Typography>
       ) : isDragReject ? (
-        <Typography textAlign="center">
-          Someting is wrong. Please, try again!
-        </Typography>
+        <Typography textAlign="center">{t("uploadErrorMessage")}</Typography>
       ) : (
         <StyledBox>
           <Typography textAlign="center" sx={{ position: "relative" }}>
-            Drag 'n' drop some files here, or click to select files{" "}
+            {t("dragDrop")}
           </Typography>
           <CloudUpload />
         </StyledBox>

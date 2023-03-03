@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, styled, Typography } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { IAppTableProps } from "../../shared/types";
 

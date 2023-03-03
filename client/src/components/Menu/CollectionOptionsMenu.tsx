@@ -1,12 +1,12 @@
 import React from "react";
-import { IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
-import { IOptionsMenuProps, UserMenuAnchorType } from "../../shared/types";
+import { IOptionsMenuProps } from "../../shared/types";
 import AppIconButton from "../Buttons/AppIconButton";
-import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
-import { collectionsDataSelector } from "../../store/selectors/collectionSelector";
+import { useAppDispatch } from "../../hooks/commonHooks";
 import DeletePopover from "../Popovers/DeletePopover";
 import { deleteCollection } from "../../store/thunks";
+import { useTranslation } from "react-i18next";
 
 const CollectionOptionsMenu: React.FC<IOptionsMenuProps> = ({
   anchorEl,
@@ -15,6 +15,8 @@ const CollectionOptionsMenu: React.FC<IOptionsMenuProps> = ({
   currentElementId,
 }) => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+
   const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) =>
     setAnchorEl([null, null]);
 
@@ -59,7 +61,7 @@ const CollectionOptionsMenu: React.FC<IOptionsMenuProps> = ({
         anchorEl={anchorDeletePopover[0]}
         setAnchorEl={setAnchorDeletePopover}
         currentElementId={anchorDeletePopover[1]}
-        text={"Are you sure that you want to delete this collection?"}
+        text={t("deleteCollectionMessage")}
         deleteHandler={() => dispatch(deleteCollection(menuId))}
       />
     </>

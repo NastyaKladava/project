@@ -6,19 +6,21 @@ import { IItemTableActionsProps } from "../../../shared/types";
 import DeletePopover from "../../Popovers/DeletePopover";
 import { useAppDispatch } from "../../../hooks/commonHooks";
 import { deleteCollectionItem } from "../../../store/thunks";
+import { useTranslation } from "react-i18next";
 
 const ItemTableActions: React.FC<IItemTableActionsProps> = ({
   itemId,
   itemTitle,
 }) => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+
   const [anchorDeletePopover, setAnchorDeletePopover] = React.useState<
     [null | HTMLButtonElement, null | string]
   >([null, null]);
 
   const openDeletePopover = (e: any, id: string) => {
     setAnchorDeletePopover([e.currentTarget, id]);
-    console.log(anchorDeletePopover);
   };
 
   return (

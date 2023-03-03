@@ -2,9 +2,8 @@ import React from "react";
 import { Box, styled, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import AppButton from "../Buttons/AppButton";
-import { setShowCollectionModal } from "../../store/slices/mainSlice";
-import { useAppDispatch } from "../../hooks/commonHooks";
 import { INoCollectionProps } from "../../shared/types";
+import { useTranslation } from "react-i18next";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -18,6 +17,7 @@ const NoCollectionBox: React.FC<INoCollectionProps> = ({
   mainText,
   buttonHandler,
 }) => {
+  const { t } = useTranslation();
   return (
     <StyledBox>
       <Typography mb={7} textAlign="center">
@@ -29,7 +29,7 @@ const NoCollectionBox: React.FC<INoCollectionProps> = ({
         endIcon={<AddIcon />}
         variant="contained"
       >
-        Add
+        {t("buttons.add")}
       </AppButton>
     </StyledBox>
   );

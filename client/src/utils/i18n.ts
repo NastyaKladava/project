@@ -11,8 +11,8 @@ i18n
     fallbackLng: "en",
     detection: {
       order: [
-        "localStorage",
         "htmlTag",
+        "localStorage",
         "cookie",
         "sessionStorage",
         "path",
@@ -20,9 +20,9 @@ i18n
       ],
       caches: ["localStorage"],
     },
-    debug: true,
-    interpolation: {
-      escapeValue: false,
-    },
+    // debug: true,
+    // interpolation: {
+    //   escapeValue: false,
+    // },
     backend: { loadPath: "/assets/locales/{{lng}}/translation.json" },
   });

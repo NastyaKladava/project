@@ -11,10 +11,13 @@ import { loginUser } from "../../store/thunks";
 import { isShowPasswordSelector } from "../../store/selectors/mainSelectors";
 import { setShowPassword } from "../../store/slices/mainSlice";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
 
 const SignInForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const isShowPassword = useAppSelector(isShowPasswordSelector);
+
   const passwordType = isShowPassword ? "text" : "password";
   const handleClickShowPassword = () => dispatch(setShowPassword());
   const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) =>
@@ -68,12 +71,12 @@ const SignInForm: React.FC = () => {
         variant="contained"
         sx={{ mt: 3, mb: 5 }}
       >
-        Sign In
+        {t("sign_in")}
       </Button>
       <Grid container justifyContent="flex-end">
         <Grid item>
           <Link to={routes.SIGNUP} component={RouterLink} variant="body2">
-            "Don't have an account? Sign Up"
+            {t("noAccount")}
           </Link>
         </Grid>
       </Grid>

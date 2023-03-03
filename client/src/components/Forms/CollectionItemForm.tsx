@@ -1,17 +1,12 @@
 import React from "react";
 import { Box, Grid, styled } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
+import { useAppDispatch } from "../../hooks/commonHooks";
 import { useForm } from "react-hook-form";
 import AppButton from "../Buttons/AppButton";
 import FormField from "./FormField";
-import { addCollection, addCollectionItem } from "../../store/thunks";
-import { useCollection } from "../../hooks/collectionHook";
-
+import { addCollectionItem } from "../../store/thunks";
 import { defineItemsFields } from "../../utils/defineItemsFields";
-import { IAddColItemData, ICollectionItem } from "../../store/types";
 import { useCollectionItem } from "../../hooks/collectionItemHook";
-import CheckboxField from "./CheckboxField";
-import DateField from "./DateField";
 
 const StyledForm = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(3),
@@ -22,10 +17,6 @@ const ItemForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { currentFields, id, currentCollection, currentUser } =
     useCollectionItem();
-
-  console.log(id);
-
-  console.log(currentFields);
 
   const {
     handleSubmit,
@@ -44,7 +35,6 @@ const ItemForm: React.FC = () => {
     dispatch(addCollectionItem(data));
     reset();
   };
-  console.log(currentFields);
 
   return (
     <StyledForm component="form" onSubmit={handleSubmit(onSubmit)}>

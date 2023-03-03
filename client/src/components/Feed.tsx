@@ -3,6 +3,7 @@ import { Box, Grid, styled, Typography } from "@mui/material";
 import { useCollection } from "../hooks/collectionHook";
 import { useAppDispatch } from "../hooks/commonHooks";
 import CollectionCard from "./Cards/CollectionCard";
+import { useTranslation } from "react-i18next";
 
 const StyledBoxNoColections = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -15,14 +16,12 @@ const StyledBoxNoColections = styled(Box)(({ theme }) => ({
 
 const Feed: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { trendCollections } = useCollection();
 
   return trendCollections.length === 0 ? (
     <StyledBoxNoColections p={{ xs: 0, md: 2 }}>
-      <Typography textAlign="center">
-        Ther are no available collections for this moment. Login and create a
-        new one!
-      </Typography>
+      <Typography textAlign="center">{t("noCollections")}</Typography>
     </StyledBoxNoColections>
   ) : (
     <Grid container spacing={10} p={{ xs: 0, md: 2 }} flex={4}>

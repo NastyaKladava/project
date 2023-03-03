@@ -15,7 +15,6 @@ import DragItem from "../DragItem";
 import { imageUrlSelector } from "../../store/selectors/collectionSelector";
 import RichText from "./RichText";
 import { curUserSelector } from "../../store/selectors/userSelector";
-import { setImageUrl } from "../../store/slices/collectionSlice";
 
 const StyledForm = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(3),

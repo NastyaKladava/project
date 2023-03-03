@@ -13,6 +13,7 @@ import {
   IDeleteResponse,
   ILikeResponse,
   ILogInResponse,
+  IUser,
   IuserRegData,
 } from "./types";
 
@@ -58,9 +59,9 @@ export const loginUser = createAsyncThunk<
   }
 });
 
-//get all users for admin
+//get  users for admin
 export const getUsers = createAsyncThunk<
-  ICurUser[],
+  IUser[],
   undefined,
   { rejectValue: string }
 >("/api/users", async function (_, { rejectWithValue }) {
@@ -68,6 +69,33 @@ export const getUsers = createAsyncThunk<
     const res = await Service.getUsers();
     return res.data;
   } catch (error: any) {
+    return rejectWithValue(error.response.data.message);
+  }
+});
+
+export const deleteUser = createAsyncThunk<
+  IDeleteResponse,
+  string,
+  { rejectValue: string }
+>("/api/users/delete/:id", async function (id, { rejectWithValue }) {
+  try {
+    const res = await Service.deleteUser(id);
+    return { id: id, message: res.data.message };
+  } catch (error: any) {
+    return rejectWithValue(error.response.data.message);
+  }
+});
+
+export const changeUserStatus = createAsyncThunk<
+  IDeleteResponse,
+  string,
+  { rejectValue: string }
+>("/api/users/block/:id", async function (id, { rejectWithValue }) {
+  try {
+    const res = await Service.changeUserStatus(id);
+    return { id: id, message: res.data.message };
+  } catch (error: any) {
+    console.log(error.response.data.message);
     return rejectWithValue(error.response.data.message);
   }
 });

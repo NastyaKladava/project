@@ -1,18 +1,10 @@
 import React from "react";
-import { Box, Fab, Grid, InputAdornment, styled } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
+import { Box, InputAdornment, styled } from "@mui/material";
+import { useAppDispatch } from "../../hooks/commonHooks";
 import { useForm } from "react-hook-form";
-import AppButton from "../Buttons/AppButton";
 import FormField from "./FormField";
-import {
-  addColItemComment,
-  addCollection,
-  addCollectionItem,
-} from "../../store/thunks";
-import { useCollection } from "../../hooks/collectionHook";
+import { addColItemComment } from "../../store/thunks";
 import { Send } from "@mui/icons-material";
-import { defineItemsFields } from "../../utils/defineItemsFields";
-import { IAddColItemData, ICollectionItem } from "../../store/types";
 import { useCollectionItem } from "../../hooks/collectionItemHook";
 import AppIconButton from "../Buttons/AppIconButton";
 import { IItemCommentProps } from "../../shared/types";
@@ -35,8 +27,7 @@ const InputProps = {
 
 const CommentForm: React.FC<IItemCommentProps> = ({ itemId }) => {
   const dispatch = useAppDispatch();
-  const { currentFields, id, currentCollection, currentUser } =
-    useCollectionItem();
+  const { currentUser } = useCollectionItem();
 
   const {
     handleSubmit,
@@ -45,12 +36,9 @@ const CommentForm: React.FC<IItemCommentProps> = ({ itemId }) => {
     control,
   } = useForm();
 
-  console.log(currentUser);
-
   const onSubmit = (data: any) => {
     data.itemId = itemId;
     data.commentAuthor = currentUser?.email;
-    console.log(data);
 
     dispatch(addColItemComment(data));
     reset();

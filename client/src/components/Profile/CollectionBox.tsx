@@ -3,9 +3,7 @@ import { Box, Grid, styled } from "@mui/material";
 import CollectionCard from "../Cards/CollectionCard";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
 import { collectionsDataSelector } from "../../store/selectors/collectionSelector";
-import AppButton from "../Buttons/AppButton";
 import { setShowCollectionModal } from "../../store/slices/mainSlice";
-import Sidebar from "../Sidebar";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: "flex",

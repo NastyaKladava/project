@@ -1,17 +1,15 @@
 import React from "react";
-import { Box, Button, IconButton, Link, styled } from "@mui/material";
-import { Language, LightMode, ModeNight } from "@mui/icons-material";
+import { Box, IconButton, Link, styled } from "@mui/material";
+import { LightMode, ModeNight } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
 import { isLoggedInSelector } from "../../store/selectors/userSelector";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import routes from "../../shared/constants/routes";
 import AppButton from "../Buttons/AppButton";
-import AppIconButton from "../Buttons/AppIconButton";
 import { setAppMode } from "../../store/slices/mainSlice";
 import { isAppModeSelector } from "../../store/selectors/mainSelectors";
-import { changeLanguage } from "../../utils/changeLanguage";
-import { EmojiFlags } from "@mui/icons-material";
-import i18next from "i18next";
+import LanguageButtons from "../Buttons/LanguageButtons";
+import { useTranslation } from "react-i18next";
 
 const ButtonGroup = styled(Box)({
   display: "flex",
@@ -23,26 +21,15 @@ const ButtonGroup = styled(Box)({
 const NavButtons: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const isAppMode = useAppSelector(isAppModeSelector);
   const isLoggedIn = useAppSelector(isLoggedInSelector);
+
   const changeAppMode = () => dispatch(setAppMode());
 
   return (
     <ButtonGroup>
-      <IconButton
-        aria-label="change language"
-        color="inherit"
-        onClick={() => i18next.changeLanguage("ru")}
-      >
-        <Language />
-      </IconButton>
-      <IconButton
-        aria-label="change language"
-        color="inherit"
-        onClick={() => i18next.changeLanguage("en")}
-      >
-        <EmojiFlags />
-      </IconButton>
+      <LanguageButtons />
       <IconButton
         aria-label="change mode"
         color="inherit"
@@ -57,14 +44,14 @@ const NavButtons: React.FC = () => {
             color="inherit"
             handler={() => navigate(`${routes.SIGIN}`)}
           >
-            SignIn
+            {t("sign_in")}
           </AppButton>
           <AppButton
             variant="outlined"
             color="inherit"
             handler={() => navigate(`${routes.SIGNUP}`)}
           >
-            SignUp
+            {t("sign_up")}
           </AppButton>
         </Box>
       )}

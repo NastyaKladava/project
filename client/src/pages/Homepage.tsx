@@ -9,6 +9,7 @@ import Feed from "../components/Feed";
 import AppSnackbar from "../components/Popovers/AppSnackbar";
 import HeroSection from "../components/HeroSection";
 import AppContainer from "../components/Containers/AppContainer";
+import { getUsers } from "../store/thunks";
 
 const StyledStack = styled(Stack)(({ theme }) => ({
   display: "flex",

@@ -1,10 +1,7 @@
 import React from "react";
 import { Divider, IconButton, Menu, styled, Typography } from "@mui/material";
-
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
 import { useNavigate } from "react-router-dom";
-import localStorageKeys from "../../shared/constants/localStorageKeys";
-import { setIsLoggedIn } from "../../store/slices/userSlice";
 import { UserMenuAnchorType } from "../../shared/types";
 import UserMenuList from "./UserMenuList";
 import { curUserSelector } from "../../store/selectors/userSelector";
@@ -13,6 +10,7 @@ const StyledTextMenuItem = styled("li")(({ theme }) => ({
   display: "block",
   padding: theme.spacing(4),
 }));
+
 const StyledIconBtn = styled(IconButton)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(),
@@ -22,8 +20,6 @@ const StyledIconBtn = styled(IconButton)(({ theme }) => ({
 }));
 
 const UserMenu: React.FC<UserMenuAnchorType> = ({ anchorEl, setAnchorEl }) => {
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const currentUser = useAppSelector(curUserSelector);
 
   const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) =>

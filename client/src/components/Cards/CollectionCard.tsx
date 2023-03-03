@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
@@ -16,7 +12,7 @@ import {
 import { MoreVert, Person } from "@mui/icons-material";
 import { ICollection } from "../../store/types";
 import { format } from "timeago.js";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppAvatar from "../AppAvatar";
 import TagsBox from "../TagsBox";
 import AppButton from "../Buttons/AppButton";
@@ -27,7 +23,8 @@ import { isLoggedInSelector } from "../../store/selectors/userSelector";
 import { useTranslation } from "react-i18next";
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  // height: "100%",
+  height: "auto",
+  // overflowY: "scroll",
   display: "flex",
   flexDirection: "column",
   paddingTop: 0,
@@ -49,18 +46,18 @@ const CollectionCard: React.FC<ICollection & IGridColCardProps> = ({
   sm,
 }) => {
   const navigate = useNavigate();
-  const [expanded, setExpanded] = useState<string | false>(false);
+  const { t } = useTranslation();
+  const cardId: any = _id;
+  const isLoggedIn = useAppSelector(isLoggedInSelector);
+
   const [anchorOptionMenu, setAnchorOptionMenu] = useState<
     [null | HTMLAnchorElement, null | string]
   >([null, null]);
 
-  const cardId: any = _id;
-
-  const isLoggedIn = useAppSelector(isLoggedInSelector);
   const openOptionsMenu = (e: any, id: string) => {
     setAnchorOptionMenu([e.currentTarget, id]);
   };
-  const { t } = useTranslation();
+
   return (
     <Grid item xs={xs} sm={sm} md={md}>
       <StyledCard>
@@ -76,6 +73,7 @@ const CollectionCard: React.FC<ICollection & IGridColCardProps> = ({
                 ariia-aria-label="more"
                 type="button"
                 onClick={(e) => openOptionsMenu(e, cardId)}
+                disabled={!isLoggedIn}
               >
                 <MoreVert />
               </IconButton>
@@ -98,15 +96,16 @@ const CollectionCard: React.FC<ICollection & IGridColCardProps> = ({
           alt={collectionTitle}
         />
         <CardContent sx={{ flexGrow: 1 }}>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            {t("welcome")}
+          <Typography component="h3" color="text.secondary" gutterBottom>
+            {t("collectionCard.topic")}
             {collectionTopic}
           </Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Email: {collectionMail}
+          <Typography component="h3" color="text.secondary" gutterBottom>
+            {t("collectionCard.createdBy")}
+            {collectionAuthor}
           </Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Created by: {collectionAuthor}
+          <Typography component="h4" color="text.secondary" gutterBottom>
+            {t("collectionCard.email")} {collectionMail}
           </Typography>
           <Typography
             variant="body2"
@@ -122,7 +121,7 @@ const CollectionCard: React.FC<ICollection & IGridColCardProps> = ({
             size="small"
             color="success"
           >
-            View
+            {t("buttons.view")}
           </AppButton>
         </CardContent>
       </StyledCard>

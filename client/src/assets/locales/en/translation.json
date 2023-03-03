@@ -1,3 +1,5 @@
 {
-  "welcome": "Welcome to React and react-i18next"
+  "main_header": "Collections",
+  "sign_in": "SignIn",
+  "sign_up": "SignUp"
 }

@@ -16,11 +16,7 @@ import {
   setColItemError,
   setColItemSuccess,
 } from "../store/slices/collectionItemSlice";
-import {
-  setShowCollectionModal,
-  setShowItemModal,
-  setShowSnackbar,
-} from "../store/slices/mainSlice";
+import { setShowSnackbar } from "../store/slices/mainSlice";
 import { getCollection, getUserColItems } from "../store/thunks";
 import { useAppDispatch, useAppSelector } from "./commonHooks";
 

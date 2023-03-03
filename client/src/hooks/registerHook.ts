@@ -13,7 +13,7 @@ import {
   successUserMessageSelector,
 } from "../store/selectors/userSelector";
 import { setShowSnackbar } from "../store/slices/mainSlice";
-import { clearUserState, setIsLoggedIn } from "../store/slices/userSlice";
+import { clearUserState } from "../store/slices/userSlice";
 import { useAppDispatch, useAppSelector } from "./commonHooks";
 
 export const useRegister = () => {

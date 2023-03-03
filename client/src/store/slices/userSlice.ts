@@ -4,12 +4,19 @@ import {
   isServerError,
   isServerSuccess,
 } from "../../utils/storeUtils";
-import { loginUser, registerUser } from "../thunks";
+import {
+  changeUserStatus,
+  deleteUser,
+  getUsers,
+  loginUser,
+  registerUser,
+} from "../thunks";
 
 import { IUserSlice } from "../types";
 
 const initialState: IUserSlice = {
   userRegData: { firstName: "", lastName: "", email: "", password: "" },
+  users: [],
   currentUser: null,
   isUserError: false,
   isUserLoading: false,
@@ -41,6 +48,9 @@ const userSlice = createSlice({
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },
+    setIsAdmin: (state, action) => {
+      state.isAdmin = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -54,6 +64,35 @@ const userSlice = createSlice({
       state.isUserSuccess = true;
       state.currentUser = action.payload.user;
       state.successUserMessage = action.payload.message;
+      if (state.currentUser.isAdmin) {
+        state.isAdmin = true;
+      }
+    });
+
+    builder.addCase(getUsers.fulfilled, (state, action) => {
+      state.isLoggedIn = true;
+      state.isUserSuccess = true;
+      state.users = action.payload;
+    });
+
+    builder.addCase(deleteUser.fulfilled, (state, action) => {
+      state.isLoggedIn = true;
+      state.isUserSuccess = true;
+      state.users = state.users.filter(
+        (item) => item._id !== action.payload.id
+      );
+    });
+
+    builder.addCase(changeUserStatus.fulfilled, (state, action) => {
+      state.isLoggedIn = true;
+      state.isUserSuccess = true;
+
+      const user = state.users.find((user) => user._id === action.payload.id);
+      if (user) {
+        user.status === "active"
+          ? (user.status = "blocked")
+          : (user.status = "active");
+      }
     });
 
     builder.addMatcher(
@@ -81,4 +120,4 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export const { clearUserState, setIsLoggedIn } = userSlice.actions;
+export const { clearUserState, setIsLoggedIn, setIsAdmin } = userSlice.actions;

@@ -1,3 +1,50 @@
 {
-  "welcome": "Welcome to React and react-i18next"
+  "main_header": "Collections",
+  "sign_in": "SignIn",
+  "sign_up": "SignUp",
+  "logo": "Collections App",
+  "languages": { "ru": "ru", "eng": "eng" },
+  "yes": "yes",
+  "cardItem": {
+    "fromCollection": "From collection ",
+    "createdBy": "Created by: ",
+    "pageQuantity": "Page quantity: ",
+    "price": "Price: ",
+    "volume": "Volume: ",
+    "author": "Author: ",
+    "type": "type: ",
+    "genre": "Genre: ",
+    "descr": "Description: ",
+    "ownerCom": "Owner comment: ",
+    "aboutAuthor": "About author: ",
+    "pubDate": "Publication date: ",
+    "harvest": "Harvest year: ",
+    "isFinished": "Is finished: ",
+    "isRead": "Is read: ",
+    "isTried": "Is tried: "
+  },
+  "collectionCard": {
+    "topic": "Topic: ",
+    "createdBy": "Created by: ",
+    "email": "Email: "
+  },
+  "buttons": {
+    "view": "view",
+    "add": "add",
+    "goHome": "Go to Home page"
+  },
+  "noAccount": "Don't have an account? Sign Up",
+  "yesAccount": "Already have an account? Sign in",
+  "deleteCollectionMessage": "Are you sure that you want to delete this collection?",
+  "deleteColItemMessage": "Are you sure that you want to delete this item?",
+  "modals": {
+    "addColItemMessage": "Add new item",
+    "addCollectionMessage": "Add new collection"
+  },
+  "noUser": "There are no users for this moment.",
+  "noCollections": "There are no available collections for this moment. Login and create a new one!",
+  "noItems": "There are no added items for this moment. Login and create a new one!",
+  "dragDrop": "Drag 'n' drop some files here, or click to select files",
+  "uploadErrorMessage": "Someting is wrong. Please, try again!",
+  "notFountPage": "Oops! You seemed to have found a dead link."
 }

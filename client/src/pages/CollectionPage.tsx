@@ -1,27 +1,17 @@
 import React, { useEffect } from "react";
 import { Box, Stack, styled } from "@mui/material";
-import { useParams } from "react-router-dom";
 import { useAppDispatch } from "../hooks/commonHooks";
-import { useCollection } from "../hooks/collectionHook";
 import NoCollectionBox from "../components/Profile/NoCollectionBox";
-import CollectionModal from "../components/Modals/CollectionModal";
-import CollectionBox from "../components/Profile/CollectionBox";
-import { getCollection } from "../store/thunks";
-import {
-  setShowCollectionModal,
-  setShowItemModal,
-} from "../store/slices/mainSlice";
+import { setShowItemModal } from "../store/slices/mainSlice";
 import { NOITEMSTEXT } from "../shared/constants/common";
 import ItemModal from "../components/Modals/CollectionItemModal";
 import { useCollectionItem } from "../hooks/collectionItemHook";
 import CollectionItemsTable from "../components/Tables/CollectionItemsTable";
-import AppCenterContainer from "../components/Containers/AppCenterContainer";
 import AppContainer from "../components/Containers/AppContainer";
 import Sidebar from "../components/Sidebar";
 import AddFab from "../components/Buttons/AddFab";
 import AppSnackbar from "../components/Popovers/AppSnackbar";
 
-const StyledBox = styled(Box)(({ theme }) => ({}));
 const StyledStack = styled(Stack)(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
@@ -38,19 +28,10 @@ const StyledCenteredBox = styled(Box)(({ theme }) => ({
 
 const CollectionPage: React.FC = () => {
   const dispatch = useAppDispatch();
-
   const openItemModal = () => dispatch(setShowItemModal(true));
 
-  const {
-    pathname,
-    collectionItemsData,
-    currentFields,
-    isColItemError,
-    isColItemLoading,
-    isColItemSuccess,
-    errorColItemMessage,
-    successColItemMessage,
-  } = useCollectionItem();
+  const { collectionItemsData, errorColItemMessage, successColItemMessage } =
+    useCollectionItem();
 
   return collectionItemsData.length === 0 ? (
     <>

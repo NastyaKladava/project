@@ -1,24 +1,19 @@
 import React, { useEffect } from "react";
-import { Box, CircularProgress, Stack, styled } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { Box, Stack, styled } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../hooks/commonHooks";
 import { curUserSelector } from "../store/selectors/userSelector";
 import NoCollectionBox from "../components/Profile/NoCollectionBox";
 import CollectionBox from "../components/Profile/CollectionBox";
-import CollectionForm from "../components/Forms/CollectionForm";
 import CollectionModal from "../components/Modals/CollectionModal";
-import { useRegister } from "../hooks/registerHook";
 import { useCollection } from "../hooks/collectionHook";
 import { setShowCollectionModal } from "../store/slices/mainSlice";
 import { NOCOLLECTIONSTEXT } from "../shared/constants/common";
 import AppCenterContainer from "../components/Containers/AppCenterContainer";
 import AppContainer from "../components/Containers/AppContainer";
 import Sidebar from "../components/Sidebar";
-import Rightbar from "../components/Rightbar";
 import AddFab from "../components/Buttons/AddFab";
 import AppSnackbar from "../components/Popovers/AppSnackbar";
-
-const StyledBox = styled(Box)(({ theme }) => ({}));
+import { useTranslation } from "react-i18next";
 
 const StyledCenteredBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -35,39 +30,21 @@ const StyledStack = styled(Stack)(({ theme }) => ({
 }));
 
 const ProfilePage: React.FC = () => {
-  const user = useAppSelector(curUserSelector);
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
+
+  const user = useAppSelector(curUserSelector);
   const { id, isAdmin } = { ...useAppSelector(curUserSelector) };
   const openCollectionModal = () => dispatch(setShowCollectionModal(true));
 
-  const {
-    isCollectionError,
-    isCollectionLoading,
-    isCollectionSuccess,
-    errorCollectionMessage,
-    isShowCollectionModal,
-    collectionsData,
-    pathname,
-    currentCollection,
-    successCollectionMessage,
-  } = useCollection();
-
-  let curId;
-
-  console.log(collectionsData);
-  console.log(id);
-
-  // if (isAdmin) {
-  //   return "hh";
-  // } else {
-  //   curId = id;
-  // }
+  const { errorCollectionMessage, collectionsData, successCollectionMessage } =
+    useCollection();
 
   return collectionsData.length === 0 ? (
     <>
       <AppCenterContainer>
         <NoCollectionBox
-          mainText={NOCOLLECTIONSTEXT}
+          mainText={t("noCollections")}
           buttonHandler={openCollectionModal}
         />
       </AppCenterContainer>

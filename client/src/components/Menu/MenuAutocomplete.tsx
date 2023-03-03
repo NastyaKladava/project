@@ -1,7 +1,7 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 import { IAutocompleteProps } from "../../shared/types";
-import { Autocomplete, Chip, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 
 const ListboxProps = {
   style: {

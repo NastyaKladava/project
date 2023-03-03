@@ -4,8 +4,6 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./NavBar/Navbar";
 import Footer from "./Footer";
 import HeroSection from "./HeroSection";
-import { useAppSelector } from "../hooks/commonHooks";
-import { isAppModeSelector } from "../store/selectors/mainSelectors";
 import { useAppTheme } from "../hooks/themeHook";
 
 const StyledBox = styled(Box)(({ theme }) => ({

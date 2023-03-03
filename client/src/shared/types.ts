@@ -7,14 +7,8 @@ import {
   Theme,
 } from "@mui/material";
 import { Control } from "react-hook-form";
-import MenuPopover from "../components/Popovers/DeletePopover";
-import { ICollectionItem, ICollectionField } from "../store/types";
-import {
-  GridColDef,
-  GridColTypeDef,
-  GridEnrichedColDef,
-  GridRowsProp,
-} from "@mui/x-data-grid";
+import { ICollectionItem, IUser } from "../store/types";
+import { GridRowsProp } from "@mui/x-data-grid";
 import { EditorState } from "draft-js";
 
 export interface IBasicFieldsProps {
@@ -78,6 +72,10 @@ export interface IButtonProps {
 
 export interface IIconButtonProps extends IButtonProps {
   ariaLabel: string;
+}
+
+export interface ITooltipButtonProps extends IIconButtonProps {
+  title: string;
 }
 
 export interface IFormProps {
@@ -178,16 +176,18 @@ export interface ITableColumns {
   width: number;
   _id: string;
   itemTitle: string;
+  firstName: string;
 }
 
 export interface IAppTableProps {
-  rows: GridRowsProp<ICollectionItem>;
+  rows: GridRowsProp<ICollectionItem | IUser>;
   columns: any;
 }
 
 export interface IItemTableActionsProps {
   itemId: string;
   itemTitle: string;
+  firstName: string;
 }
 
 export interface IItemCommentProps {

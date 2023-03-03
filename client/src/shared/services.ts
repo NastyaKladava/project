@@ -1,10 +1,8 @@
 import http from "./constants/http-common";
 import {
-  IAddColItemData,
   IColItemComment,
   ICollection,
   ICollectionItem,
-  ICurUser,
   IuserRegData,
 } from "../store/types";
 import localStorageKeys from "./constants/localStorageKeys";
@@ -21,6 +19,18 @@ const logIn = (data: IuserRegData) => {
 //get users for admin
 const getUsers = () => {
   return http.get("/api/users", {
+    headers: { accessToken: localStorage.getItem(localStorageKeys.TOKEN) },
+  });
+};
+
+const deleteUser = (id: string) => {
+  return http.delete(`/api/users/delete/${id}`, {
+    headers: { accessToken: localStorage.getItem(localStorageKeys.TOKEN) },
+  });
+};
+
+const changeUserStatus = (id: string) => {
+  return http.put(`/api/users/block/${id}`, {
     headers: { accessToken: localStorage.getItem(localStorageKeys.TOKEN) },
   });
 };
@@ -123,6 +133,8 @@ const Service = {
   likeCollectionItem,
   addColItemComment,
   getColItemComments,
+  deleteUser,
+  changeUserStatus,
 };
 
 export default Service;

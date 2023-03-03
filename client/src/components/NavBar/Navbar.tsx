@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useTransition } from "react";
 import {
   AppBar,
   IconButton,
@@ -6,16 +6,15 @@ import {
   Link,
   styled,
   Toolbar,
-  Typography,
 } from "@mui/material";
-import { InterestsOutlined, Language, Person } from "@mui/icons-material";
+import { InterestsOutlined } from "@mui/icons-material";
 import UserBox from "./UserBox";
 import NavButtons from "./NavButtons";
-import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
+import { useAppSelector } from "../../hooks/commonHooks";
 import { isLoggedInSelector } from "../../store/selectors/userSelector";
 import routes from "../../shared/constants/routes";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import AppIconButton from "../Buttons/AppIconButton";
+import { useTranslation } from "react-i18next";
 
 const StyledToolBar = styled(Toolbar)({
   display: "flex",
@@ -31,8 +30,8 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const Navbar: React.FC = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const isLoggedIn = useAppSelector(isLoggedInSelector);
 
   return (
@@ -45,7 +44,7 @@ const Navbar: React.FC = () => {
           underline="none"
           sx={{ display: { xs: "none", sm: "block", color: "inherit" } }}
         >
-          Collections App
+          {t("logo")}
         </Link>
 
         <IconButton
