@@ -11,8 +11,8 @@ i18n
     fallbackLng: "en",
     detection: {
       order: [
-        "htmlTag",
         "localStorage",
+        "htmlTag",
         "cookie",
         "sessionStorage",
         "path",

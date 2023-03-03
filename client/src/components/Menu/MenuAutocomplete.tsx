@@ -5,7 +5,7 @@ import { Autocomplete, TextField } from "@mui/material";
 
 const ListboxProps = {
   style: {
-    maxHeight: 100,
+    maxHeight: 150,
     width: "auto",
   },
 };
