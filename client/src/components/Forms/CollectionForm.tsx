@@ -19,6 +19,11 @@ import { curUserSelector } from "../../store/selectors/userSelector";
 const StyledForm = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(3),
   maxWidth: "100%",
+  maxHeight: "90%",
+  [theme.breakpoints.down("md")]: {
+    overflowY: "scroll",
+    paddingRight: theme.spacing(3),
+  },
 }));
 
 const CollectionForm: React.FC = () => {

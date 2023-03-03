@@ -15,7 +15,13 @@ const StyledBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   padding: theme.spacing(15),
-  width: "40vw",
+  width: "30vw",
+  [theme.breakpoints.up("md")]: {
+    width: "30vw",
+  },
+  [theme.breakpoints.down("md")]: {
+    width: "60vw",
+  },
   height: "auto",
   borderRadius: theme.spacing(5),
   backgroundColor: theme.palette.background.default,

@@ -23,10 +23,10 @@ export const ColItemsTableColumns: GridColDef<ITableColumns>[] = [
     headerName: "Item fields",
     width: 300,
     valueGetter: (params: GridValueGetterParams) => {
-      const itemFields = Object.keys(params.row).filter(
-        (item) => !NOTOPTIONALFIELDS.indexOf(item)
-      );
-      const newItemFields = itemFields.join(", ");
+      const itemFields = Object.keys(params.row);
+      const newItemFields = itemFields
+        .filter((item) => !NOTOPTIONALFIELDS.includes(item))
+        .join(", ");
       return `${newItemFields}`;
     },
   },

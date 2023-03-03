@@ -95,7 +95,6 @@ export const changeUserStatus = createAsyncThunk<
     const res = await Service.changeUserStatus(id);
     return { id: id, message: res.data.message };
   } catch (error: any) {
-    console.log(error.response.data.message);
     return rejectWithValue(error.response.data.message);
   }
 });
@@ -163,7 +162,6 @@ export const getCollection = createAsyncThunk<
 >("/api/collection/:id", async function (id, { rejectWithValue }) {
   try {
     const res = await Service.getCollection(id);
-    console.log(res.data);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data.message);

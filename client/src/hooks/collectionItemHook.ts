@@ -36,8 +36,6 @@ export const useCollectionItem = () => {
 
   const { pathname } = useLocation();
 
-  console.log(id);
-
   useEffect(() => {
     if (pathname === `/collection/${id}`) {
       dispatch(getCollection(id));

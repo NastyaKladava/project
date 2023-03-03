@@ -19,6 +19,7 @@ export const NOTOPTIONALFIELDS = [
   "__v",
   "itemTitle",
   "itemTags",
+  "itemAuthor",
   "fromCollection",
   "likes",
   "comments",
