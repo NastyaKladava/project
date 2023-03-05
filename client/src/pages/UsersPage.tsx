@@ -17,11 +17,7 @@ const StyledStack = styled(Stack)(({ theme }) => ({
 
 const UsersPage: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { users } = useAdmin();
-
-  useEffect(() => {
-    dispatch(getUsers());
-  });
+  useAdmin();
 
   return (
     <AppContainer>

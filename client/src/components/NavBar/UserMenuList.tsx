@@ -47,11 +47,24 @@ const UserMenuList: React.FC = () => {
   const navigateToProfile = () => {
     isAdmin ? navigate("/users") : navigate("/profile");
   };
+  const navigateTousers = () => {
+    navigate("/users");
+  };
+
   const goBack = () => navigate(-1);
   const changeAppMode = () => dispatch(setAppMode());
 
   return (
     <List>
+      <ListItem disablePadding>
+        <ListItemButton onClick={navigateTousers}>
+          <ListItemIcon>
+            <Home />
+          </ListItemIcon>
+          <ListItemText primary={t("admin")} />
+        </ListItemButton>
+      </ListItem>
+      /////
       <ListItem disablePadding>
         <ListItemButton onClick={navigateToHome}>
           <ListItemIcon>
