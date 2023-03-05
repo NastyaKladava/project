@@ -14,7 +14,7 @@ export const useAdmin = () => {
 
   useEffect(() => {
     dispatch(getUsers());
-  }, []);
+  }, [dispatch]);
 
   return { users, isUsersLoadign };
 };
