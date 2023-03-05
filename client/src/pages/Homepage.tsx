@@ -1,18 +1,11 @@
-import React, { useEffect } from "react";
-import { Box, Container, styled } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../hooks/commonHooks";
-import { isLoggedInSelector } from "../store/selectors/userSelector";
+import React from "react";
+import { styled, Stack } from "@mui/material";
 import { useCollection } from "../hooks/collectionHook";
-import { Stack } from "@mui/system";
 import Rightbar from "../components/Rightbar";
 import Feed from "../components/Feed";
 import AppSnackbar from "../components/Popovers/AppSnackbar";
-import HeroSection from "../components/HeroSection";
 import AppContainer from "../components/Containers/AppContainer";
-import { getUsers } from "../store/thunks";
 import Loading from "../components/Loading";
-import CollectionUpdateModal from "../components/Modals/CollectionUpdateModal";
-import ColItemUpdateModal from "../components/Modals/ColItemUpdateModal";
 
 const StyledStack = styled(Stack)(({ theme }) => ({
   display: "flex",
@@ -24,15 +17,15 @@ const StyledStack = styled(Stack)(({ theme }) => ({
 }));
 
 const HomePage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const isLoggedIn = useAppSelector(isLoggedInSelector);
   const {
     errorCollectionMessage,
     errorColItemMessage,
     successColItemMessage,
     infoMessage,
     isColItemLoading,
-    isCollectionLoading,
+    isColItemSuccess,
+    isCollectionError,
+    isColItemError,
   } = useCollection();
 
   return (
@@ -44,13 +37,13 @@ const HomePage: React.FC = () => {
           <Feed />
           <Rightbar />
         </StyledStack>
-        {errorCollectionMessage && (
+        {errorCollectionMessage && isCollectionError && (
           <AppSnackbar message={errorCollectionMessage} severity="error" />
         )}
-        {errorColItemMessage && (
+        {errorColItemMessage && isColItemError && (
           <AppSnackbar message={errorColItemMessage} severity="error" />
         )}
-        {successColItemMessage && (
+        {successColItemMessage && isColItemSuccess && (
           <AppSnackbar message={successColItemMessage} severity="success" />
         )}
         {infoMessage && <AppSnackbar message={infoMessage} severity="info" />}{" "}

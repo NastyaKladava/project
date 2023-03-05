@@ -14,7 +14,6 @@ import {
 import { MoreVert, ExpandMoreSharp } from "@mui/icons-material";
 import { ICollectionItem } from "../../store/types";
 import { format } from "timeago.js";
-import { useNavigate } from "react-router-dom";
 import { DATEFORMAT } from "../../shared/constants/common";
 import dayjs from "dayjs";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";

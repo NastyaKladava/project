@@ -3,8 +3,6 @@ import { Box, Popover, styled, Typography } from "@mui/material";
 import AppIconButton from "../Buttons/AppIconButton";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { IDeletePopoverProps } from "../../shared/types";
-import { useAppDispatch } from "../../hooks/commonHooks";
-import { deleteCollection } from "../../store/thunks";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -22,7 +20,6 @@ const DeletePopover: React.FC<IDeletePopoverProps> = ({
   text,
   deleteHandler,
 }) => {
-  const dispatch = useAppDispatch();
   const handleClose = (e: React.MouseEvent<HTMLButtonElement>) =>
     setAnchorEl([null, null]);
 

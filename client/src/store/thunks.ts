@@ -288,7 +288,6 @@ export const addColItemComment = createAsyncThunk<
     const res = await Service.addColItemComment(commentData);
     return res.data;
   } catch (error: any) {
-    console.log(error.response.data.message);
     return rejectWithValue(error.response.data.message);
   }
 });

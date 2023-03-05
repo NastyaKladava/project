@@ -20,22 +20,19 @@ const StyledForm = styled(Box)(({ theme }) => ({
 const UpdateItemForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const { currentFields, id, currentCollection, currentUser, updatedColItem } =
+  const { currentFields, currentCollection, currentUser, updatedColItem } =
     useCollectionItem();
   const tagsDefaultValue = updatedColItem?.itemTags?.join(",");
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    reset,
-    control,
-  } = useForm();
+  const { handleSubmit, reset, control } = useForm();
 
   const onSubmit = (data: any) => {
     const tagsArray: string[] = data.itemTags.split(",");
+    data.userId = currentCollection?.userId;
+    data.itemAuthor = currentCollection?.collectionAuthor;
     data.itemTags = tagsArray;
     data.collectionId = currentCollection?._id;
-    data.itemAuthor = currentUser?.firstName;
+    // data.itemAuthor = currentUser?.firstName;
     data.fromCollection = currentCollection?.collectionTitle;
 
     const updatedData: IUpdateColItemRequest = {
@@ -44,7 +41,7 @@ const UpdateItemForm: React.FC = () => {
     };
     dispatch(updateColitem(updatedData));
     reset();
-    //dispatch(setUpdatedColItem(undefined));
+    dispatch(setUpdatedColItem(undefined));
     dispatch(setShowColItemUpdateModal(false));
   };
 

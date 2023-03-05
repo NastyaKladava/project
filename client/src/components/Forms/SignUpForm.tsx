@@ -1,13 +1,12 @@
 import React from "react";
 import { Button, Grid, IconButton, InputAdornment, Link } from "@mui/material";
 import Form from "./Form";
-import FormField from "./FormField";
 import { Link as RouterLink } from "react-router-dom";
 import routes from "../../shared/constants/routes";
 import { sigUpFields } from "../../shared/constants/formFields";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
-import { loginUser, registerUser } from "../../store/thunks";
+import { registerUser } from "../../store/thunks";
 import { isShowPasswordSelector } from "../../store/selectors/mainSelectors";
 import { setShowPassword } from "../../store/slices/mainSlice";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -46,7 +45,7 @@ const SignUpForm: React.FC = () => {
     handleSubmit,
     reset,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm();
 
   const onSubmit = (data: any) => {

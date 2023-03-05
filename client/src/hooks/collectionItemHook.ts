@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { SNACKBARTIMER } from "../shared/constants/common";
 import { TimerIdType } from "../shared/types";
 import {
@@ -20,16 +20,17 @@ import {
 } from "../store/slices/collectionItemSlice";
 import {
   setShowColItemUpdateModal,
-  setShowItemModal,
   setShowSnackbar,
+  setShowItemModal,
 } from "../store/slices/mainSlice";
 import { getCollection, getUserColItems } from "../store/thunks";
 import { useAppDispatch, useAppSelector } from "./commonHooks";
 
 export const useCollectionItem = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const dispatch = useAppDispatch();
+
   const isColItemSuccess = useAppSelector(isColItemSuccessSelector);
   const isColItemError = useAppSelector(isColItemErrorSelector);
   const isColItemLoading = useAppSelector(isColItemLoadingSelector);
@@ -40,14 +41,13 @@ export const useCollectionItem = () => {
   const currentUser = useAppSelector(curUserSelector);
   const successColItemMessage = useAppSelector(successColItemMessageSelector);
   const updatedColItem = useAppSelector(updatedColItemSelector);
-  const { pathname } = useLocation();
 
   useEffect(() => {
     if (pathname === `/collection/${id}`) {
       dispatch(getCollection(id));
       dispatch(getUserColItems(id));
     }
-  }, []);
+  }, [dispatch, id, pathname]);
 
   useEffect(() => {
     let timerId: TimerIdType;
@@ -58,10 +58,11 @@ export const useCollectionItem = () => {
         dispatch(setColItemSuccess(false));
         dispatch(setShowColItemUpdateModal(false));
         dispatch(setUpdatedColItem(undefined));
+        dispatch(setShowItemModal(false));
       }, SNACKBARTIMER);
     }
 
-    if (isColItemError || errorColItemMessage) {
+    if (isColItemError && errorColItemMessage) {
       dispatch(setShowSnackbar(true));
       timerId = setTimeout(
         () => dispatch(setColItemError(false)),
@@ -71,7 +72,13 @@ export const useCollectionItem = () => {
     return () => {
       clearTimeout(timerId);
     };
-  }, [isColItemSuccess, isColItemError]);
+  }, [
+    isColItemSuccess,
+    isColItemError,
+    errorColItemMessage,
+    successColItemMessage,
+    dispatch,
+  ]);
 
   return {
     isColItemSuccess,

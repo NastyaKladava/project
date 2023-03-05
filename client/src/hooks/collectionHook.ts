@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   errorColItemMessageSelector,
   isColItemErrorSelector,
@@ -26,6 +26,7 @@ import {
 import {
   setInfoMessage,
   setShowCollectionModal,
+  setShowColUpdateModal,
   setShowSnackbar,
 } from "../store/slices/mainSlice";
 import {
@@ -39,7 +40,6 @@ import {
   setCollectionError,
   setCollectionSuccess,
   setImageUploadProgress,
-  setImageUrl,
 } from "../store/slices/collectionSlice";
 import { SNACKBARTIMER, TIMERDELAY } from "../shared/constants/common";
 import {
@@ -50,7 +50,6 @@ import { TimerIdType } from "../shared/types";
 
 export const useCollection = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isShowCollectionModal = useAppSelector(isShowColModalSelector);
   const infoMessage = useAppSelector(infoMessageSelector);
@@ -78,7 +77,6 @@ export const useCollection = () => {
   const successColItemMessage = useAppSelector(successColItemMessageSelector);
 
   const { pathname } = useLocation();
-  console.log(useLocation());
 
   useEffect(() => {
     let timerId: TimerIdType;
@@ -90,7 +88,7 @@ export const useCollection = () => {
     return () => {
       clearTimeout(timerId);
     };
-  }, [latestItems]);
+  }, [latestItems, pathname, dispatch]);
 
   useEffect(() => {
     if (pathname === "/profile") {
@@ -103,7 +101,7 @@ export const useCollection = () => {
       dispatch(getTrendCollection());
       dispatch(getLatestColItems());
     }
-  }, [pathname, id]);
+  }, [pathname, id, dispatch]);
 
   useEffect(() => {
     let timerId: TimerIdType;
@@ -113,9 +111,17 @@ export const useCollection = () => {
       timerId = setTimeout(() => {
         dispatch(setCollectionSuccess(false));
         dispatch(setShowCollectionModal(false));
-        // dispatch(setColItemSuccess(false));
+        dispatch(setShowColUpdateModal(false));
+        //dispatch(setColItemSuccess(false));
         // dispatch(setImageUrl(null));
         dispatch(setImageUploadProgress(0));
+      }, SNACKBARTIMER);
+    }
+
+    if (isColItemSuccess && successColItemMessage) {
+      dispatch(setShowSnackbar(true));
+      timerId = setTimeout(() => {
+        dispatch(setColItemSuccess(false));
       }, SNACKBARTIMER);
     }
 
@@ -142,6 +148,10 @@ export const useCollection = () => {
     isColItemError,
     isColItemSuccess,
     infoMessage,
+    dispatch,
+    successColItemMessage,
+    successCollectionMessage,
+    errorColItemMessage,
   ]);
 
   return {

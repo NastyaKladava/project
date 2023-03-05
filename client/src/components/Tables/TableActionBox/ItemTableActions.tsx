@@ -20,8 +20,6 @@ const ItemTableActions: React.FC<IItemTableActionsProps> = ({
   const items = useAppSelector(collectionItemsDataSelector);
   const currentItem = items?.find((items) => items._id === itemId);
 
-  console.log(currentItem);
-
   const [anchorDeletePopover, setAnchorDeletePopover] = React.useState<
     [null | HTMLButtonElement, null | string]
   >([null, null]);

@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import { Box, LinearProgress, styled } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { IAppTableProps } from "../../shared/types";
-import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
-import {
-  isUserLoadingSelector,
-  usersSelector,
-} from "../../store/selectors/userSelector";
+import { useAppSelector } from "../../hooks/commonHooks";
+import { isUserLoadingSelector } from "../../store/selectors/userSelector";
 import { isColItemLoadingSelector } from "../../store/selectors/collectionItemSelector";
-import { collectionItemsDataSelector } from "../../store/selectors/collectionItemSelector";
 import NoRowsOverlay from "./NoRowsOverlay";
 import { useLocation } from "react-router-dom";
 
@@ -29,7 +25,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 const AppTable: React.FC<IAppTableProps> = ({ rows, columns }) => {
-  const dispatch = useAppDispatch();
   const { pathname } = useLocation();
   const isUsersLoading = useAppSelector(isUserLoadingSelector);
   const isColItemsLoading = useAppSelector(isColItemLoadingSelector);

@@ -1,8 +1,7 @@
 import React from "react";
 import { TextField } from "@mui/material";
-import { IFieldsProps, IValidatedFieldsProps } from "../../shared/types";
+import { IValidatedFieldsProps } from "../../shared/types";
 import { Controller } from "react-hook-form";
-import { ICollectionField } from "../../store/types";
 import { getValidationMessage } from "../../utils/getValidationMessage";
 
 const ValidatedFormField: React.FC<IValidatedFieldsProps> = ({

@@ -6,7 +6,9 @@ export const NOCOLLECTIONSTEXT =
 export const NOITEMSTEXT =
   "There are no items for this moment. To add the item push the button.";
 
-export const REQAUTHMESSAGE = "You aren't logged in!";
+export const REQAUTHMESSAGE = "Sorry, you aren't logged in!";
+
+export const REQADMINMESSAGE = "Sorry, you aren't have rights!";
 
 export const DATEFORMAT = "DD/MM/YYYY";
 

@@ -1,22 +1,13 @@
 import React from "react";
-import { Avatar, Box, styled, Typography } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 import { LockOutlined } from "@mui/icons-material";
-import { useAppDispatch } from "../hooks/commonHooks";
 import { useRegister } from "../hooks/registerHook";
 import SignUpForm from "../components/Forms/SignUpForm";
 import AppCenterContainer from "../components/Containers/AppCenterContainer";
 import AppSnackbar from "../components/Popovers/AppSnackbar";
 import { useTranslation } from "react-i18next";
 
-const StyledBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
 const SignUp: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { errorUserMessage, successUserMessage } = useRegister();
 

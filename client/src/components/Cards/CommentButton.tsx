@@ -1,6 +1,6 @@
 import React from "react";
-import { Checkbox, IconButton } from "@mui/material";
-import { Favorite, FavoriteBorder, InsertComment } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { InsertComment } from "@mui/icons-material";
 import { IIconButtonProps } from "../../shared/types";
 
 const CommentButton: React.FC<IIconButtonProps> = ({ ariaLabel }) => {

@@ -1,7 +1,6 @@
 import React from "react";
-import { Divider, IconButton, Menu, styled, Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
-import { useNavigate } from "react-router-dom";
+import { Divider, Menu, styled, Typography } from "@mui/material";
+import { useAppSelector } from "../../hooks/commonHooks";
 import { UserMenuAnchorType } from "../../shared/types";
 import UserMenuList from "./UserMenuList";
 import { curUserSelector } from "../../store/selectors/userSelector";
@@ -12,21 +11,12 @@ const StyledTextMenuItem = styled("li")(({ theme }) => ({
   padding: theme.spacing(4),
 }));
 
-const StyledIconBtn = styled(IconButton)(({ theme }) => ({
-  display: "flex",
-  gap: theme.spacing(),
-  padding: theme.spacing(),
-  color: "inherit",
-  fontSize: "inherit",
-}));
-
 const UserMenu: React.FC<UserMenuAnchorType> = ({ anchorEl, setAnchorEl }) => {
   const { t } = useTranslation();
   const currentUser = useAppSelector(curUserSelector);
 
   const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) =>
     setAnchorEl(null);
-  const openMenu = (e: any) => setAnchorEl(e.currentTarget);
 
   return (
     <Menu

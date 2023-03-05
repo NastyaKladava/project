@@ -19,8 +19,6 @@ import { updatedCollectionSelector } from "../../store/selectors/mainSelectors";
 import { convertHtmlToEditorState } from "../../utils/convertHtmlToEditorState";
 import WideForm from "./WideForm";
 import { useTranslation } from "react-i18next";
-import { setUpdatedColItem } from "../../store/slices/collectionItemSlice";
-import { setShowColItemUpdateModal } from "../../store/slices/mainSlice";
 
 const CollectionUpdateForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -42,7 +40,7 @@ const CollectionUpdateForm: React.FC = () => {
 
   const {
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { isValid },
     reset,
     control,
   } = useForm();

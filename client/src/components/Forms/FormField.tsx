@@ -2,8 +2,6 @@ import React from "react";
 import { TextField } from "@mui/material";
 import { IFieldsProps } from "../../shared/types";
 import { Controller } from "react-hook-form";
-import { ICollectionField } from "../../store/types";
-import { getValidationMessage } from "../../utils/getValidationMessage";
 
 const FormField: React.FC<IFieldsProps> = ({
   id,

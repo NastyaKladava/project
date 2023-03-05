@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Avatar, Box } from "@mui/material";
 import UserMenu from "./UserMenu";
-import { useAppDispatch } from "../../hooks/commonHooks";
 
 const UserBox: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLAnchorElement>(null);

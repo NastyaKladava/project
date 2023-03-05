@@ -1,10 +1,8 @@
 import React from "react";
 import { Box, Grid, styled, Typography } from "@mui/material";
 import { useCollection } from "../hooks/collectionHook";
-import { useAppDispatch } from "../hooks/commonHooks";
 import CollectionCard from "./Cards/CollectionCard";
 import { useTranslation } from "react-i18next";
-import CollectionUpdateModal from "./Modals/CollectionUpdateModal";
 
 const StyledBoxNoColections = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -16,7 +14,6 @@ const StyledBoxNoColections = styled(Box)(({ theme }) => ({
 }));
 
 const Feed: React.FC = () => {
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { trendCollections } = useCollection();
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
 import { IOptionsMenuProps } from "../../shared/types";
@@ -23,7 +23,6 @@ const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
 
   const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setAnchorEl([null, null]);
-    // setUpdatedColItem(undefined);
   };
 
   const [anchorDeletePopover, setAnchorDeletePopover] = React.useState<
@@ -36,7 +35,7 @@ const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
 
   const openUpdateModal = () => {
     dispatch(setShowColItemUpdateModal(true));
-    //setUpdatedColItem(currentItem);
+    setUpdatedColItem(currentItem);
   };
 
   return (

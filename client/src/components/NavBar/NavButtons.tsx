@@ -1,9 +1,9 @@
 import React from "react";
-import { Box, IconButton, Link, styled } from "@mui/material";
+import { Box, IconButton, styled } from "@mui/material";
 import { LightMode, ModeNight } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
 import { isLoggedInSelector } from "../../store/selectors/userSelector";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import routes from "../../shared/constants/routes";
 import AppButton from "../Buttons/AppButton";
 import { setAppMode } from "../../store/slices/mainSlice";
@@ -50,7 +50,7 @@ const NavButtons: React.FC = () => {
             variant="outlined"
             color="inherit"
             handler={() => navigate(`${routes.SIGNUP}`)}
-            sx={{ display: { xs: "none", md: "inline-block" } }}
+            sx={{ display: { xs: "none", sm: "inline-block" } }}
           >
             {t("sign_up")}
           </AppButton>
@@ -59,11 +59,5 @@ const NavButtons: React.FC = () => {
     </ButtonGroup>
   );
 };
-
-{
-  /* <Link to={routes.SIGNUP} component={RouterLink} variant="body2">
-  "Don't have an account? Sign Up"
-</Link>; */
-}
 
 export default NavButtons;
