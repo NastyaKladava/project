@@ -6,6 +6,7 @@ import { useAdmin } from "../hooks/adminHook";
 import NoUsersBox from "../components/Profile/NoUsersBox";
 import UsersTable from "../components/Tables/UsersTable";
 import { useAppDispatch } from "../hooks/commonHooks";
+import { getUsers } from "../store/thunks";
 
 const StyledStack = styled(Stack)(({ theme }) => ({
   display: "flex",
@@ -18,11 +19,15 @@ const UsersPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { users } = useAdmin();
 
+  // useEffect(() => {
+  //   dispatch(getUsers());
+  // });
+
   return (
     <AppContainer>
       <StyledStack>
         <Sidebar />
-        {users?.length === 0 ? <NoUsersBox /> : <UsersTable />}
+        <UsersTable />
       </StyledStack>
     </AppContainer>
   );
