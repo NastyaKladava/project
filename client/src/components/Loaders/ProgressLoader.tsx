@@ -22,11 +22,9 @@ const ProgressLoader = (props: CircularProgressProps & { value: number }) => {
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress variant="determinate" {...props} />
       <StyledBox>
-        <Typography
-          variant="caption"
-          component="div"
-          color="text.secondary"
-        >{`${Math.round(props.value)}%`}</Typography>
+        <Typography variant="caption" color="text.secondary">{`${Math.round(
+          props.value
+        )}%`}</Typography>
       </StyledBox>
     </Box>
   );

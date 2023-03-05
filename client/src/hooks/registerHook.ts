@@ -52,6 +52,7 @@ export const useRegister = () => {
         () => dispatch(dispatch(clearUserState())),
         SNACKBARTIMER
       );
+      console.log(timerId);
     }
     return () => {
       clearTimeout(timerId);

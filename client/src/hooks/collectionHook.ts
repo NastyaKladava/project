@@ -78,6 +78,7 @@ export const useCollection = () => {
   const successColItemMessage = useAppSelector(successColItemMessageSelector);
 
   const { pathname } = useLocation();
+  console.log(useLocation());
 
   useEffect(() => {
     let timerId: TimerIdType;
@@ -107,16 +108,15 @@ export const useCollection = () => {
   useEffect(() => {
     let timerId: TimerIdType;
 
-    if (isCollectionSuccess) {
+    if (isCollectionSuccess && successCollectionMessage) {
       dispatch(setShowSnackbar(true));
       timerId = setTimeout(() => {
-        dispatch(setShowCollectionModal(false));
         dispatch(setCollectionSuccess(false));
-        dispatch(setColItemSuccess(false));
-        dispatch(setImageUrl(null));
+        dispatch(setShowCollectionModal(false));
+        // dispatch(setColItemSuccess(false));
+        // dispatch(setImageUrl(null));
         dispatch(setImageUploadProgress(0));
       }, SNACKBARTIMER);
-      console.log(timerId);
     }
 
     if (infoMessage) {
@@ -124,7 +124,7 @@ export const useCollection = () => {
       timerId = setTimeout(() => dispatch(setInfoMessage(null)), SNACKBARTIMER);
     }
 
-    if (isColItemError) {
+    if (isColItemError && errorColItemMessage) {
       dispatch(setShowSnackbar(true));
       timerId = setTimeout(
         () => dispatch(setColItemError(false)),

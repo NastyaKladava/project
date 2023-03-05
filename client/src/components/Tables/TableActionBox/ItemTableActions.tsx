@@ -4,9 +4,12 @@ import { Button } from "@mui/material";
 import AppButtonGroup from "../../Buttons/AppButtonGroup";
 import { IItemTableActionsProps } from "../../../shared/types";
 import DeletePopover from "../../Popovers/DeletePopover";
-import { useAppDispatch } from "../../../hooks/commonHooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/commonHooks";
 import { deleteCollectionItem } from "../../../store/thunks";
 import { useTranslation } from "react-i18next";
+import { collectionItemsDataSelector } from "../../../store/selectors/collectionItemSelector";
+import { setShowColItemUpdateModal } from "../../../store/slices/mainSlice";
+import { setUpdatedColItem } from "../../../store/slices/collectionItemSlice";
 
 const ItemTableActions: React.FC<IItemTableActionsProps> = ({
   itemId,
@@ -14,6 +17,10 @@ const ItemTableActions: React.FC<IItemTableActionsProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const items = useAppSelector(collectionItemsDataSelector);
+  const currentItem = items?.find((items) => items._id === itemId);
+
+  console.log(currentItem);
 
   const [anchorDeletePopover, setAnchorDeletePopover] = React.useState<
     [null | HTMLButtonElement, null | string]
@@ -21,6 +28,11 @@ const ItemTableActions: React.FC<IItemTableActionsProps> = ({
 
   const openDeletePopover = (e: any, id: string) => {
     setAnchorDeletePopover([e.currentTarget, id]);
+  };
+
+  const openUpdateModal = () => {
+    dispatch(setShowColItemUpdateModal(true));
+    dispatch(setUpdatedColItem(currentItem));
   };
 
   return (
@@ -36,7 +48,7 @@ const ItemTableActions: React.FC<IItemTableActionsProps> = ({
         >
           <Delete />
         </Button>
-        <Button aria-label="update">
+        <Button aria-label="update" onClick={openUpdateModal}>
           <Update />
         </Button>
       </AppButtonGroup>

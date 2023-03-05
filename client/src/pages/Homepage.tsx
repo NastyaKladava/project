@@ -10,6 +10,9 @@ import AppSnackbar from "../components/Popovers/AppSnackbar";
 import HeroSection from "../components/HeroSection";
 import AppContainer from "../components/Containers/AppContainer";
 import { getUsers } from "../store/thunks";
+import Loading from "../components/Loading";
+import CollectionUpdateModal from "../components/Modals/CollectionUpdateModal";
+import ColItemUpdateModal from "../components/Modals/ColItemUpdateModal";
 
 const StyledStack = styled(Stack)(({ theme }) => ({
   display: "flex",
@@ -28,27 +31,34 @@ const HomePage: React.FC = () => {
     errorColItemMessage,
     successColItemMessage,
     infoMessage,
+    isColItemLoading,
+    isCollectionLoading,
   } = useCollection();
 
   return (
-    <AppContainer>
-      {/* <MainHeader title="Collections" /> */}
-      {/* <HeroSection /> */}
-      <StyledStack>
-        <Feed />
-        <Rightbar />
-      </StyledStack>
-      {errorCollectionMessage && (
-        <AppSnackbar message={errorCollectionMessage} severity="error" />
-      )}
-      {errorColItemMessage && (
-        <AppSnackbar message={errorColItemMessage} severity="error" />
-      )}
-      {successColItemMessage && (
-        <AppSnackbar message={successColItemMessage} severity="success" />
-      )}
-      {infoMessage && <AppSnackbar message={infoMessage} severity="info" />}
-    </AppContainer>
+    <>
+      <AppContainer>
+        {/* <MainHeader title="Collections" /> */}
+        {/* <HeroSection /> */}
+        <StyledStack>
+          <Feed />
+          <Rightbar />
+        </StyledStack>
+        {errorCollectionMessage && (
+          <AppSnackbar message={errorCollectionMessage} severity="error" />
+        )}
+        {errorColItemMessage && (
+          <AppSnackbar message={errorColItemMessage} severity="error" />
+        )}
+        {successColItemMessage && (
+          <AppSnackbar message={successColItemMessage} severity="success" />
+        )}
+        {infoMessage && <AppSnackbar message={infoMessage} severity="info" />}{" "}
+        {isColItemLoading && <Loading />}
+      </AppContainer>
+      {/* <CollectionUpdateModal /> */}
+      {/* <ColItemUpdateModal /> */}
+    </>
   );
 };
 

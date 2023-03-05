@@ -40,6 +40,7 @@ const MenuGrouped: React.FC<IGroupedProps> = ({
       }) => (
         <Autocomplete
           multiple={multiple}
+          // value={defaultValue}
           limitTags={1}
           id={id}
           size="medium"

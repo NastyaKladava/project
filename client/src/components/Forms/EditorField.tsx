@@ -8,6 +8,7 @@ import { EDITOROPTIONS } from "../../shared/constants/common";
 import { Box, styled } from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(2),
   borderWidth: 2,
   borderRadius: theme.spacing(2),
   borderColor: theme.palette.info.main,

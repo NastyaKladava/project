@@ -7,6 +7,7 @@ import {
   getCollection,
   getTrendCollection,
   getUserCollections,
+  updateCollection,
 } from "../thunks";
 import { ICollectionSlice } from "../types";
 
@@ -29,8 +30,18 @@ const collectionSlice = createSlice({
   name: "collectionsData",
   initialState,
   reducers: {
-    clearCollectionState: () => {
-      return initialState;
+    clearCollectionState: (state) => {
+      state.collectionsData = [];
+      state.editContent = "";
+      state.editorState = EditorState.createEmpty();
+      state.isCollectionError = false;
+      state.isCollectionLoading = false;
+      state.isCollectionSuccess = false;
+      state.errorCollectionMessage = null;
+      state.successCollectionMessage = null;
+      state.currentCollection = null;
+      state.imageUrl = null;
+      state.imageUploadProgress = 0;
     },
     setImageUrl: (state, action) => {
       state.imageUrl = action.payload;
@@ -85,6 +96,34 @@ const collectionSlice = createSlice({
       state.successCollectionMessage = action.payload.message;
     });
 
+    builder.addCase(updateCollection.fulfilled, (state, action) => {
+      state.isCollectionLoading = false;
+      state.isCollectionSuccess = true;
+      state.successCollectionMessage = action.payload.message;
+
+      const collection = state.collectionsData.find(
+        (collection) => collection._id === action.payload.collection._id
+      );
+      if (collection) {
+        // collection.collectionTitle = action.payload.collection.collectionTitle;
+        // collection.collectionTopic = action.payload.collection.collectionTopic;
+        // collection.collectionDescr = action.payload.collection.collectionDescr;
+        // collection.collectionTags = action.payload.collection.collectionTags;
+        // collection.collectionImageUrl =
+        //   action.payload.collection.collectionImageUrl;
+        // collection.collectionFields =
+        //   action.payload.collection.collectionFields;
+        // collection.updatedAt = action.payload.collection.updatedAt;
+
+        state.collectionsData = state.collectionsData.filter(
+          (collection) => collection._id !== action.payload.collection._id
+        );
+        const updatedArray = state.collectionsData;
+        updatedArray.push(action.payload.collection);
+        state.collectionsData = updatedArray;
+      }
+    });
+
     builder.addMatcher(
       isServerError,
       (state, action: PayloadAction<string>) => {
@@ -93,12 +132,9 @@ const collectionSlice = createSlice({
         state.isCollectionLoading = false;
       }
     );
-    builder.addMatcher(
-      isServerLoading,
-      (state, action: PayloadAction<string>) => {
-        state.isCollectionLoading = true;
-      }
-    );
+    builder.addMatcher(isServerLoading, (state) => {
+      state.isCollectionLoading = true;
+    });
   },
 });
 

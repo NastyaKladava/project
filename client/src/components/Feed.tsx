@@ -4,6 +4,7 @@ import { useCollection } from "../hooks/collectionHook";
 import { useAppDispatch } from "../hooks/commonHooks";
 import CollectionCard from "./Cards/CollectionCard";
 import { useTranslation } from "react-i18next";
+import CollectionUpdateModal from "./Modals/CollectionUpdateModal";
 
 const StyledBoxNoColections = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -24,11 +25,13 @@ const Feed: React.FC = () => {
       <Typography textAlign="center">{t("noCollections")}</Typography>
     </StyledBoxNoColections>
   ) : (
-    <Grid container spacing={10} p={{ xs: 0, md: 2 }} flex={4}>
-      {trendCollections.map((collection, index) => (
-        <CollectionCard key={index} {...collection} xs={12} sm={6} md={4} />
-      ))}
-    </Grid>
+    <>
+      <Grid container spacing={10} p={{ xs: 0, md: 2 }} flex={4}>
+        {trendCollections.map((collection, index) => (
+          <CollectionCard key={index} {...collection} xs={12} sm={6} md={4} />
+        ))}
+      </Grid>
+    </>
   );
 };
 

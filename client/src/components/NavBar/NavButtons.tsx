@@ -59,8 +59,10 @@ const NavButtons: React.FC = () => {
   );
 };
 
-<Link to={routes.SIGNUP} component={RouterLink} variant="body2">
+{
+  /* <Link to={routes.SIGNUP} component={RouterLink} variant="body2">
   "Don't have an account? Sign Up"
-</Link>;
+</Link>; */
+}
 
 export default NavButtons;

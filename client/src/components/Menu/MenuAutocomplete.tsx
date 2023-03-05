@@ -39,6 +39,7 @@ const MenuAutocomplete: React.FC<IAutocompleteProps> = ({
           freeSolo={freeSolo}
           noOptionsText="No option"
           forcePopupIcon={true}
+          value={defaultValue}
           renderInput={(params) => (
             <TextField
               {...field}

@@ -9,6 +9,7 @@ import {
   isColItemLoadingSelector,
   isColItemSuccessSelector,
   successColItemMessageSelector,
+  updatedColItemSelector,
 } from "../store/selectors/collectionItemSelector";
 import { curCollectionSelector } from "../store/selectors/collectionSelector";
 import { curUserSelector } from "../store/selectors/userSelector";
@@ -16,7 +17,11 @@ import {
   setColItemError,
   setColItemSuccess,
 } from "../store/slices/collectionItemSlice";
-import { setShowSnackbar } from "../store/slices/mainSlice";
+import {
+  setShowColItemUpdateModal,
+  setShowItemModal,
+  setShowSnackbar,
+} from "../store/slices/mainSlice";
 import { getCollection, getUserColItems } from "../store/thunks";
 import { useAppDispatch, useAppSelector } from "./commonHooks";
 
@@ -33,7 +38,7 @@ export const useCollectionItem = () => {
   const collectionItemsData = useAppSelector(collectionItemsDataSelector);
   const currentUser = useAppSelector(curUserSelector);
   const successColItemMessage = useAppSelector(successColItemMessageSelector);
-
+  const updatedColItem = useAppSelector(updatedColItemSelector);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -46,15 +51,15 @@ export const useCollectionItem = () => {
   useEffect(() => {
     let timerId: TimerIdType;
 
-    if (isColItemSuccess) {
+    if (isColItemSuccess && successColItemMessage) {
       dispatch(setShowSnackbar(true));
       timerId = setTimeout(() => {
-        //  dispatch(setShowItemModal(false));
         dispatch(setColItemSuccess(false));
+        dispatch(setShowColItemUpdateModal(false));
       }, SNACKBARTIMER);
     }
 
-    if (isColItemError) {
+    if (isColItemError || errorColItemMessage) {
       dispatch(setShowSnackbar(true));
       timerId = setTimeout(
         () => dispatch(setColItemError(false)),
@@ -78,5 +83,6 @@ export const useCollectionItem = () => {
     currentCollection,
     currentUser,
     successColItemMessage,
+    updatedColItem,
   };
 };

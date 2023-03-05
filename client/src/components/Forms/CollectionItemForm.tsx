@@ -7,6 +7,7 @@ import FormField from "./FormField";
 import { addCollectionItem } from "../../store/thunks";
 import { defineItemsFields } from "../../utils/defineItemsFields";
 import { useCollectionItem } from "../../hooks/collectionItemHook";
+import { useTranslation } from "react-i18next";
 
 const StyledForm = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(3),
@@ -15,7 +16,8 @@ const StyledForm = styled(Box)(({ theme }) => ({
 
 const ItemForm: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { currentFields, id, currentCollection, currentUser } =
+  const { t } = useTranslation();
+  const { currentFields, id, currentCollection, currentUser, updatedColItem } =
     useCollectionItem();
 
   const {
@@ -41,11 +43,10 @@ const ItemForm: React.FC = () => {
       <Grid container spacing={5}>
         <Grid item xs={12}>
           <FormField
-            autoComplete="on"
             autoFocus={true}
             id="itemTitle"
             name="itemTitle"
-            label="item Title"
+            label="Item title"
             placeholder="Enter title"
             defaultValue=""
             control={control}
@@ -54,11 +55,10 @@ const ItemForm: React.FC = () => {
         </Grid>
         <Grid item xs={12}>
           <FormField
-            autoComplete="on"
             id="itemTags"
             name="itemTags"
-            label="Tags"
-            placeholder="Enter tags with comma"
+            label="Item tags"
+            placeholder="Enter with comma"
             defaultValue=""
             control={control}
             errorMessage="Tags is required"
@@ -67,13 +67,13 @@ const ItemForm: React.FC = () => {
         <>
           {currentFields &&
             currentFields.map((field, index) =>
-              defineItemsFields(field, index, control)
+              defineItemsFields(field, index, control, updatedColItem)
             )}
         </>
 
         <Grid item xs={12}>
           <AppButton type="submit" variant="contained">
-            Create item
+            {t("buttons.createColItem")}
           </AppButton>
         </Grid>
       </Grid>

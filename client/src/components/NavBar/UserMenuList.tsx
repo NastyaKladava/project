@@ -13,6 +13,7 @@ import {
   ModeNight,
   Logout,
   LightMode,
+  ArrowBackIosNewOutlined,
 } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
@@ -21,8 +22,13 @@ import { setIsAdmin, setIsLoggedIn } from "../../store/slices/userSlice";
 import { setAppMode } from "../../store/slices/mainSlice";
 import { isAppModeSelector } from "../../store/selectors/mainSelectors";
 import { isAdminSelector } from "../../store/selectors/userSelector";
+import { clearColItemState } from "../../store/slices/collectionItemSlice";
+import { clearCollectionState } from "../../store/slices/collectionSlice";
+import { clearUserState } from "../../store/slices/userSlice";
+import { useTranslation } from "react-i18next";
 
 const UserMenuList: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isAppMode = useAppSelector(isAppModeSelector);
@@ -32,12 +38,16 @@ const UserMenuList: React.FC = () => {
     localStorage.removeItem(localStorageKeys.TOKEN);
     dispatch(setIsLoggedIn(false));
     dispatch(setIsAdmin(false));
+    dispatch(clearColItemState());
+    dispatch(clearCollectionState());
+    dispatch(clearUserState());
     navigate("/");
   };
   const navigateToHome = () => navigate("/");
   const navigateToProfile = () => {
     isAdmin ? navigate("/users") : navigate("/profile");
   };
+  const goBack = () => navigate(-1);
   const changeAppMode = () => dispatch(setAppMode());
 
   return (
@@ -47,7 +57,15 @@ const UserMenuList: React.FC = () => {
           <ListItemIcon>
             <Home />
           </ListItemIcon>
-          <ListItemText primary="Homepage" />
+          <ListItemText primary={t("userMenu.homePage")} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
+        <ListItemButton onClick={goBack}>
+          <ListItemIcon>
+            <ArrowBackIosNewOutlined />
+          </ListItemIcon>
+          <ListItemText primary={t("userMenu.goback")} />
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>
@@ -55,7 +73,7 @@ const UserMenuList: React.FC = () => {
           <ListItemIcon>
             <AccountBox />
           </ListItemIcon>
-          <ListItemText primary="Profile" />
+          <ListItemText primary={t("userMenu.profile")} />
         </ListItemButton>
       </ListItem>
       <ListItem disablePadding>

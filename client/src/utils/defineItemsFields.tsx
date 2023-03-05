@@ -1,15 +1,16 @@
-import { Grid } from "@mui/material";
 import React from "react";
+import { Grid } from "@mui/material";
 import { Control } from "react-hook-form";
 import CheckboxField from "../components/Forms/CheckboxField";
 import DateField from "../components/Forms/DateField";
 import FormField from "../components/Forms/FormField";
-import { ICollectionField } from "../store/types";
+import { ICollectionField, ICollectionItem } from "../store/types";
 
 export const defineItemsFields = (
   field: ICollectionField,
   index: number,
-  control: Control
+  control: Control,
+  updatedColItem: ICollectionItem | undefined
 ) => {
   const type = field.type;
   const value = field.title.toLowerCase();
@@ -22,7 +23,12 @@ export const defineItemsFields = (
           name={value}
           label={value}
           autoComplete={value}
-          defaultValue=""
+          defaultValue={
+            updatedColItem?.["page quantity"] ||
+            updatedColItem?.price ||
+            updatedColItem?.volume ||
+            ""
+          }
           control={control}
           errorMessage={`${value} is required`}
           placeholder={value}
@@ -36,7 +42,12 @@ export const defineItemsFields = (
           id={value}
           name={value}
           label={value}
-          defaultValue={false}
+          defaultValue={
+            updatedColItem?.["is finished"] ||
+            updatedColItem?.["is read"] ||
+            updatedColItem?.["is tried"] ||
+            false
+          }
           control={control}
           errorMessage={`${value} 2is required`}
         />
@@ -49,7 +60,11 @@ export const defineItemsFields = (
           id={value}
           name={value}
           label={value}
-          defaultValue={new Date()}
+          defaultValue={
+            updatedColItem?.["harvest year"] ||
+            updatedColItem?.["publication date"] ||
+            new Date()
+          }
           control={control}
           inputFormat="DD/MM/YYYY"
           errorMessage={`${value} is required`}
@@ -64,7 +79,12 @@ export const defineItemsFields = (
           name={value}
           label={value}
           autoComplete={value}
-          defaultValue=""
+          defaultValue={
+            updatedColItem?.comment ||
+            updatedColItem?.["about author"] ||
+            updatedColItem?.descr ||
+            ""
+          }
           multiline
           control={control}
           errorMessage={`${value} is required`}
@@ -80,7 +100,12 @@ export const defineItemsFields = (
           name={value}
           label={value}
           autoComplete={value}
-          defaultValue=""
+          defaultValue={
+            updatedColItem?.author ||
+            updatedColItem?.genre ||
+            updatedColItem?.type ||
+            ""
+          }
           control={control}
           errorMessage={`${value} is required`}
           placeholder={value}

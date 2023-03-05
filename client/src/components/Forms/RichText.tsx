@@ -4,11 +4,11 @@ import { useForm, Controller } from "react-hook-form";
 import { IRichTextProps } from "../../shared/types";
 import EditorField from "./EditorField";
 
-const RichText: React.FC<IRichTextProps> = ({ control }) => {
+const RichText: React.FC<IRichTextProps> = ({ control, defaultValue }) => {
   return (
     <Controller
       name="collectionDescr"
-      defaultValue={EditorState.createEmpty()}
+      defaultValue={defaultValue}
       control={control}
       render={({ field: { onChange, value } }) => {
         return <EditorField value={value} onChange={onChange} />;

@@ -54,14 +54,15 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.isUserSuccess = true;
       state.isRegistered = true;
       state.isUserSuccess = true;
       state.successUserMessage = action.payload;
     });
 
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.isLoggedIn = true;
       state.isUserSuccess = true;
+      state.isLoggedIn = true;
       state.currentUser = action.payload.user;
       state.successUserMessage = action.payload.message;
       if (state.currentUser.isAdmin) {

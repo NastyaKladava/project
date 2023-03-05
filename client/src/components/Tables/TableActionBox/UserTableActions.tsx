@@ -10,12 +10,14 @@ import AppButtonGroup from "../../Buttons/AppButtonGroup";
 import { IItemTableActionsProps } from "../../../shared/types";
 import { useAppDispatch } from "../../../hooks/commonHooks";
 import { changeUserStatus, deleteUser } from "../../../store/thunks";
+import { useNavigate } from "react-router-dom";
 
 const UserTableActions: React.FC<IItemTableActionsProps> = ({
   itemId,
   itemTitle,
   firstName,
 }) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleDeleteUser = () => dispatch(deleteUser(itemId));
   const handleBlockUser = () => dispatch(changeUserStatus(itemId));

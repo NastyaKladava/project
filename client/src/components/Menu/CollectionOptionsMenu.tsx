@@ -2,11 +2,23 @@ import React from "react";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
 import { IOptionsMenuProps } from "../../shared/types";
-import AppIconButton from "../Buttons/AppIconButton";
-import { useAppDispatch } from "../../hooks/commonHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
 import DeletePopover from "../Popovers/DeletePopover";
 import { deleteCollection } from "../../store/thunks";
 import { useTranslation } from "react-i18next";
+import {
+  setShowColUpdateModal,
+  setUpdatedCollection,
+} from "../../store/slices/mainSlice";
+import {
+  collectionsDataSelector,
+  trendCollectionSelector,
+} from "../../store/selectors/collectionSelector";
+import {
+  setImageUploadProgress,
+  setImageUrl,
+} from "../../store/slices/collectionSlice";
+import { setUpdatedColItem } from "../../store/slices/collectionItemSlice";
 
 const CollectionOptionsMenu: React.FC<IOptionsMenuProps> = ({
   anchorEl,
@@ -16,6 +28,10 @@ const CollectionOptionsMenu: React.FC<IOptionsMenuProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const collections = useAppSelector(collectionsDataSelector);
+  const currentCollection = collections?.find(
+    (collection) => collection?._id === currentElementId
+  );
 
   const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) =>
     setAnchorEl([null, null]);
@@ -26,6 +42,13 @@ const CollectionOptionsMenu: React.FC<IOptionsMenuProps> = ({
 
   const openDeletePopover = (e: any, id: string) => {
     setAnchorDeletePopover([e.currentTarget, id]);
+  };
+
+  const openUpdateModal = () => {
+    dispatch(setImageUrl(currentCollection?.collectionImageUrl));
+    dispatch(setImageUploadProgress(100));
+    dispatch(setShowColUpdateModal(true));
+    dispatch(setUpdatedCollection(currentCollection));
   };
 
   return (
@@ -51,9 +74,9 @@ const CollectionOptionsMenu: React.FC<IOptionsMenuProps> = ({
           </IconButton>
         </MenuItem>
         <MenuItem>
-          <AppIconButton ariaLabel="update">
+          <IconButton aria-label="update" onClick={openUpdateModal}>
             <Update />
-          </AppIconButton>
+          </IconButton>
         </MenuItem>
       </Menu>
       <DeletePopover

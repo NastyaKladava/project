@@ -7,8 +7,9 @@ import {
   getLatestColItems,
   getUserColItems,
   likeCollectionItem,
+  updateColitem,
 } from "../thunks";
-import { ICollectionItemSlice } from "../types";
+import { ICollectionItem, ICollectionItemSlice } from "../types";
 
 const initialState: ICollectionItemSlice = {
   itemsData: [],
@@ -18,14 +19,21 @@ const initialState: ICollectionItemSlice = {
   isColItemSuccess: false,
   errorColItemMessage: null,
   successColItemMessage: null,
+  updatedColItem: undefined,
 };
 
 const collectionItemSlice = createSlice({
   name: "itemsData",
   initialState,
   reducers: {
-    clearColItemState: () => {
-      return initialState;
+    clearColItemState: (state) => {
+      state.itemsData = [];
+      state.isColItemError = false;
+      state.isColItemLoading = false;
+      state.isColItemSuccess = false;
+      state.errorColItemMessage = null;
+      state.successColItemMessage = null;
+      state.updatedColItem = undefined;
     },
 
     setColItemError: (state, action) => {
@@ -35,6 +43,12 @@ const collectionItemSlice = createSlice({
     setColItemSuccess: (state, action) => {
       state.isColItemSuccess = action.payload;
       state.successColItemMessage = null;
+    },
+    setUpdatedColItem: (
+      state,
+      action: PayloadAction<ICollectionItem | undefined>
+    ) => {
+      state.updatedColItem = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -78,6 +92,25 @@ const collectionItemSlice = createSlice({
       state.isColItemSuccess = true;
       state.successColItemMessage = action.payload.message;
     });
+
+    builder.addCase(updateColitem.fulfilled, (state, action) => {
+      state.isColItemLoading = false;
+      state.isColItemSuccess = true;
+      state.successColItemMessage = action.payload.message;
+
+      const item = state.itemsData.find(
+        (item) => item._id === action.payload.item._id
+      );
+      if (item) {
+        state.itemsData = state.itemsData.filter(
+          (item) => item._id !== action.payload.item._id
+        );
+        const updatedArray = state.itemsData;
+        updatedArray.push(action.payload.item);
+        state.itemsData = updatedArray;
+      }
+    });
+
     builder.addMatcher(
       isServerError,
       (state, action: PayloadAction<string>) => {
@@ -97,5 +130,9 @@ const collectionItemSlice = createSlice({
 
 export default collectionItemSlice.reducer;
 
-export const { setColItemError, setColItemSuccess, clearColItemState } =
-  collectionItemSlice.actions;
+export const {
+  setColItemError,
+  setColItemSuccess,
+  clearColItemState,
+  setUpdatedColItem,
+} = collectionItemSlice.actions;

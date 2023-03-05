@@ -23,11 +23,29 @@ import { isLoggedInSelector } from "../../store/selectors/userSelector";
 import { useTranslation } from "react-i18next";
 
 const StyledCard = styled(Card)(({ theme }) => ({
-  height: "auto",
-  // overflowY: "scroll",
   display: "flex",
   flexDirection: "column",
   paddingTop: 0,
+
+  height: "550px",
+  overflowY: "auto",
+
+  "&::-webkit-scrollbar": {
+    width: 10,
+    borderRadius: theme.spacing(2),
+  },
+  "&::-webkit-scrollbar-track": {
+    borderRadius: theme.spacing(),
+    backgroundColor: theme.palette.background.paper,
+    width: 5,
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor: theme.palette.grey[400],
+    backgroundClip: "padding-box",
+    borderRight: `${theme.spacing()} ${theme.palette.background.paper} solid`,
+    borderLeft: `${theme.spacing()} ${theme.palette.background.paper} solid`,
+    borderRadius: theme.spacing(2),
+  },
 }));
 
 const CollectionCard: React.FC<ICollection & IGridColCardProps> = ({

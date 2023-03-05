@@ -1,15 +1,16 @@
-import { PaletteMode } from "@mui/material";
-import { BlobOptions } from "buffer";
 import { EditorState } from "draft-js";
 
 //MainSlice
 export interface IMainState {
   isShowCollectionModal: boolean;
+  isShowColUpdateModal: boolean;
   isShowItemModal: boolean;
+  isShowColItemUpdateModal: boolean;
   isShowSnackbar: boolean;
   isShowPassword: boolean;
   infoMessage: null | string;
   isAppMode: boolean;
+  updatedCollection: ICollection | undefined;
 }
 
 //userSlice
@@ -103,11 +104,16 @@ export interface IAddColItemData {
   itemData: ICollectionItem;
 }
 
+export interface IColDescr {
+  collectionDescr: string;
+}
+
 //collectionItem slice
 
 export interface ICollectionItemSlice {
   itemsData: ICollectionItem[];
   latestItemsData: ICollectionItem[];
+  updatedColItem: undefined | ICollectionItem;
   isColItemError: boolean;
   isColItemLoading: boolean;
   isColItemSuccess: boolean;
@@ -123,7 +129,7 @@ export interface ICollectionItem {
   itemTags: string[];
   itemAuthor: string;
   fromCollection: string;
-  comments: IColItemComment[] | [];
+  comments?: IColItemComment[] | [];
   likes?: string[] | [];
   createdAt?: Date;
   updatedAt?: Date;
@@ -180,4 +186,14 @@ export interface ICommentResponse extends ResponseType {
 
 export interface ILikeResponse extends ResponseType {
   id: string;
+}
+
+export interface IUpdateCollectionRequest {
+  id: string | undefined;
+  updatedCollection: ICollection;
+}
+
+export interface IUpdateColItemRequest {
+  id: string | undefined;
+  updatedItem: ICollectionItem;
 }

@@ -1,13 +1,14 @@
-import React from "react";
-import { IconButton, Menu, MenuItem, Tooltip } from "@mui/material";
+import React, { useEffect } from "react";
+import { IconButton, Menu, MenuItem } from "@mui/material";
 import { Delete, Update } from "@mui/icons-material";
-import { IOptionsMenuProps, UserMenuAnchorType } from "../../shared/types";
-import AppIconButton from "../Buttons/AppIconButton";
+import { IOptionsMenuProps } from "../../shared/types";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
-import { collectionsDataSelector } from "../../store/selectors/collectionSelector";
 import DeletePopover from "../Popovers/DeletePopover";
-import { deleteCollection, deleteCollectionItem } from "../../store/thunks";
+import { deleteCollectionItem } from "../../store/thunks";
 import { useTranslation } from "react-i18next";
+import { setShowColItemUpdateModal } from "../../store/slices/mainSlice";
+import { collectionItemsDataSelector } from "../../store/selectors/collectionItemSelector";
+import { setUpdatedColItem } from "../../store/slices/collectionItemSlice";
 
 const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
   anchorEl,
@@ -17,9 +18,13 @@ const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const items = useAppSelector(collectionItemsDataSelector);
+  const currentItem = items?.find((items) => items?._id === currentElementId);
 
-  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) =>
+  const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setAnchorEl([null, null]);
+    // setUpdatedColItem(undefined);
+  };
 
   const [anchorDeletePopover, setAnchorDeletePopover] = React.useState<
     [null | HTMLButtonElement, null | string]
@@ -27,6 +32,11 @@ const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
 
   const openDeletePopover = (e: any, id: string) => {
     setAnchorDeletePopover([e.currentTarget, id]);
+  };
+
+  const openUpdateModal = () => {
+    dispatch(setShowColItemUpdateModal(true));
+    //setUpdatedColItem(currentItem);
   };
 
   return (
@@ -52,9 +62,9 @@ const ItemOptionsMenu: React.FC<IOptionsMenuProps> = ({
           </IconButton>
         </MenuItem>
         <MenuItem>
-          <AppIconButton ariaLabel="update">
+          <IconButton aria-label="update" onClick={openUpdateModal}>
             <Update />
-          </AppIconButton>
+          </IconButton>
         </MenuItem>
       </Menu>
       <DeletePopover

@@ -49,7 +49,7 @@ export const sigUpFields: IFieldsProps[] = [
   },
 ];
 
-export const collectionTopic = ["Alcohol", "Books", "Serials"];
+export const collectionTopicsValues = ["Alcohol", "Books", "Serials"];
 
 // export const collectionTopic = [
 //   { title: "Alcohol" },
@@ -74,7 +74,7 @@ export const collectionTopic = ["Alcohol", "Books", "Serials"];
 //   "Is tried",
 // ];
 
-export const collectionFields = [
+export const collectionFieldsValues = [
   { title: "Page quantity", type: "number" },
   { title: "Price", type: "number" },
   { title: "Volume", type: "number" },

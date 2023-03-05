@@ -26,3 +26,9 @@ export const errorColItemMessageSelector = (
 export const successColItemMessageSelector = (
   store: RootState
 ): string | null | undefined => store.collectionItem.successColItemMessage;
+
+export const updatedColItemSelector = (
+  store: RootState
+): ICollectionItem | undefined => {
+  return store.collectionItem.updatedColItem;
+};

@@ -3,6 +3,8 @@ import {
   IColItemComment,
   ICollection,
   ICollectionItem,
+  IUpdateColItemRequest,
+  IUpdateCollectionRequest,
   IuserRegData,
 } from "../store/types";
 import localStorageKeys from "./constants/localStorageKeys";
@@ -75,8 +77,8 @@ const deleteCollection = (id: string) => {
   });
 };
 
-const updateCollection = (id: string) => {
-  return http.post(`/api/collection/${id}`, {
+const updateCollection = (data: IUpdateCollectionRequest) => {
+  return http.put(`/api/collection/update/${data.id}`, data.updatedCollection, {
     headers: { accessToken: localStorage.getItem(localStorageKeys.TOKEN) },
   });
 };
@@ -102,6 +104,12 @@ const deleteCollectionItem = (id: string) => {
 
 const getLatestColItems = () => {
   return http.get("/api/item/latest");
+};
+
+const updateColItem = (data: IUpdateColItemRequest) => {
+  return http.put(`/api/item/update/${data.id}`, data.updatedItem, {
+    headers: { accessToken: localStorage.getItem(localStorageKeys.TOKEN) },
+  });
 };
 
 //item comments
@@ -135,6 +143,7 @@ const Service = {
   getColItemComments,
   deleteUser,
   changeUserStatus,
+  updateColItem,
 };
 
 export default Service;

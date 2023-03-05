@@ -13,6 +13,8 @@ import {
   IDeleteResponse,
   ILikeResponse,
   ILogInResponse,
+  IUpdateColItemRequest,
+  IUpdateCollectionRequest,
   IUser,
   IuserRegData,
 } from "./types";
@@ -194,6 +196,19 @@ export const deleteCollection = createAsyncThunk<
   }
 });
 
+export const updateCollection = createAsyncThunk<
+  ICollectionResponse,
+  IUpdateCollectionRequest,
+  { rejectValue: string }
+>("/api/collection/update/:id", async function (data, { rejectWithValue }) {
+  try {
+    const res = await Service.updateCollection(data);
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data.message);
+  }
+});
+
 //collection items
 export const addCollectionItem = createAsyncThunk<
   IColItemResponse,
@@ -244,6 +259,19 @@ export const getLatestColItems = createAsyncThunk<
 >("/api/item/latest", async function (_, { rejectWithValue }) {
   try {
     const res = await Service.getLatestColItems();
+    return res.data;
+  } catch (error: any) {
+    return rejectWithValue(error.response.data.message);
+  }
+});
+
+export const updateColitem = createAsyncThunk<
+  IColItemResponse,
+  IUpdateColItemRequest,
+  { rejectValue: string }
+>("/api/item/update/:id", async function (data, { rejectWithValue }) {
+  try {
+    const res = await Service.updateColItem(data);
     return res.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data.message);

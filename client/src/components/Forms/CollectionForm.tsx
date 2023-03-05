@@ -1,11 +1,11 @@
 import React from "react";
-import { Box, Grid, styled } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/commonHooks";
 import { useForm } from "react-hook-form";
 import MenuAutocomplete from "../Menu/MenuAutocomplete";
 import {
-  collectionTopic,
-  collectionFields,
+  collectionTopicsValues,
+  collectionFieldsValues,
 } from "../../shared/constants/formFields";
 import AppButton from "../Buttons/AppButton";
 import FormField from "./FormField";
@@ -15,21 +15,16 @@ import DragItem from "../DragItem";
 import { imageUrlSelector } from "../../store/selectors/collectionSelector";
 import RichText from "./RichText";
 import { curUserSelector } from "../../store/selectors/userSelector";
-
-const StyledForm = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(3),
-  maxWidth: "100%",
-  maxHeight: "90%",
-  [theme.breakpoints.down("md")]: {
-    overflowY: "scroll",
-    paddingRight: theme.spacing(3),
-  },
-}));
+import { EditorState } from "draft-js";
+import WideForm from "./WideForm";
+import { useTranslation } from "react-i18next";
 
 const CollectionForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const imageUrl = useAppSelector(imageUrlSelector);
   const currentUser = useAppSelector(curUserSelector);
+  const richTExtDefaultValue = EditorState.createEmpty();
 
   const {
     handleSubmit,
@@ -45,18 +40,16 @@ const CollectionForm: React.FC = () => {
     data.collectionAuthor = currentUser?.firstName;
     data.collectionMail = currentUser?.email;
 
-    console.log(data);
     dispatch(addCollection(data));
     reset();
     // dispatch(setImageUrl(null));
   };
 
   return (
-    <StyledForm component="form" onSubmit={handleSubmit(onSubmit)}>
+    <WideForm handleData={handleSubmit(onSubmit)}>
       <Grid container spacing={10}>
         <Grid item xs={12} md={6}>
           <FormField
-            autoComplete="on"
             autoFocus={true}
             id="collectionTitle"
             name="collectionTitle"
@@ -69,11 +62,10 @@ const CollectionForm: React.FC = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <FormField
-            autoComplete="on"
             id="collectionTags"
             name="collectionTags"
             label="Tags"
-            placeholder="Enter tags with comma"
+            placeholder="Enter with comma"
             defaultValue=""
             control={control}
             errorMessage="Tags is required"
@@ -89,7 +81,7 @@ const CollectionForm: React.FC = () => {
             multiple={false}
             defaultValue=""
             control={control}
-            options={collectionTopic}
+            options={collectionTopicsValues}
             errorMessage="Topic is required"
             freeSolo
           />
@@ -103,24 +95,24 @@ const CollectionForm: React.FC = () => {
             placeholder="Choose fields"
             multiple
             control={control}
-            menuData={collectionFields}
+            menuData={collectionFieldsValues}
             errorMessage="Fields is required"
           />
         </Grid>
 
         <Grid item xs={12}>
-          <RichText control={control} />
+          <RichText control={control} defaultValue={richTExtDefaultValue} />
         </Grid>
         <Grid item xs={12}>
           <DragItem />
         </Grid>
         <Grid item xs={12}>
           <AppButton type="submit" variant="contained" disabled={!isValid}>
-            Create collection
+            {t("buttons.createCollection")}
           </AppButton>
         </Grid>
       </Grid>
-    </StyledForm>
+    </WideForm>
   );
 };
 

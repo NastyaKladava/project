@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { UserMenuAnchorType } from "../../shared/types";
 import UserMenuList from "./UserMenuList";
 import { curUserSelector } from "../../store/selectors/userSelector";
+import { useTranslation } from "react-i18next";
 
 const StyledTextMenuItem = styled("li")(({ theme }) => ({
   display: "block",
@@ -20,6 +21,7 @@ const StyledIconBtn = styled(IconButton)(({ theme }) => ({
 }));
 
 const UserMenu: React.FC<UserMenuAnchorType> = ({ anchorEl, setAnchorEl }) => {
+  const { t } = useTranslation();
   const currentUser = useAppSelector(curUserSelector);
 
   const closeMenu = (e: React.MouseEvent<HTMLAnchorElement>) =>
@@ -63,7 +65,7 @@ const UserMenu: React.FC<UserMenuAnchorType> = ({ anchorEl, setAnchorEl }) => {
       anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
     >
       <StyledTextMenuItem>
-        <Typography> Signed in as</Typography>
+        <Typography>{t("signedInAs")}</Typography>
         <Typography>{currentUser?.firstName}</Typography>
       </StyledTextMenuItem>
       <Divider />

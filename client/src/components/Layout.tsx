@@ -22,7 +22,7 @@ const Layout: React.FC = () => {
         <Navbar />
         <HeroSection />
         <Outlet />
-        <Footer title="Footer" description="Collection Website" />
+        <Footer />
       </StyledBox>
     </ThemeProvider>
   );

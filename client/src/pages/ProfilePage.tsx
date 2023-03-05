@@ -6,7 +6,11 @@ import NoCollectionBox from "../components/Profile/NoCollectionBox";
 import CollectionBox from "../components/Profile/CollectionBox";
 import CollectionModal from "../components/Modals/CollectionModal";
 import { useCollection } from "../hooks/collectionHook";
-import { setShowCollectionModal } from "../store/slices/mainSlice";
+import {
+  setShowCollectionModal,
+  setShowColUpdateModal,
+  setUpdatedCollection,
+} from "../store/slices/mainSlice";
 import { NOCOLLECTIONSTEXT } from "../shared/constants/common";
 import AppCenterContainer from "../components/Containers/AppCenterContainer";
 import AppContainer from "../components/Containers/AppContainer";
@@ -14,6 +18,9 @@ import Sidebar from "../components/Sidebar";
 import AddFab from "../components/Buttons/AddFab";
 import AppSnackbar from "../components/Popovers/AppSnackbar";
 import { useTranslation } from "react-i18next";
+import Loading from "../components/Loading";
+import CollectionUpdateModal from "../components/Modals/CollectionUpdateModal";
+import { trendCollectionSelector } from "../store/selectors/collectionSelector";
 
 const StyledCenteredBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -36,9 +43,16 @@ const ProfilePage: React.FC = () => {
   const user = useAppSelector(curUserSelector);
   const { id, isAdmin } = { ...useAppSelector(curUserSelector) };
   const openCollectionModal = () => dispatch(setShowCollectionModal(true));
+  const openCollectionUpdateModal = () => dispatch(setShowColUpdateModal(true));
 
-  const { errorCollectionMessage, collectionsData, successCollectionMessage } =
-    useCollection();
+  const collections = useAppSelector(trendCollectionSelector);
+
+  const {
+    errorCollectionMessage,
+    collectionsData,
+    successCollectionMessage,
+    isCollectionLoading,
+  } = useCollection();
 
   return collectionsData.length === 0 ? (
     <>
@@ -55,6 +69,7 @@ const ProfilePage: React.FC = () => {
       {successCollectionMessage && (
         <AppSnackbar message={successCollectionMessage} severity="success" />
       )}
+      {isCollectionLoading && <Loading />}
     </>
   ) : (
     <>
@@ -65,6 +80,7 @@ const ProfilePage: React.FC = () => {
         </StyledStack>
       </AppContainer>
       <CollectionModal />
+      <CollectionUpdateModal />
       <AddFab
         title="Add new collection"
         ariaLabel="add"
@@ -76,6 +92,7 @@ const ProfilePage: React.FC = () => {
       {successCollectionMessage && (
         <AppSnackbar message={successCollectionMessage} severity="success" />
       )}
+      {isCollectionLoading && <Loading />}
     </>
   );
 };

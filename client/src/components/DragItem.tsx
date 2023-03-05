@@ -7,6 +7,7 @@ import { CloudUpload } from "@mui/icons-material";
 import { imgUploadProgSelector } from "../store/selectors/collectionSelector";
 import ProgressLoader from "./Loaders/ProgressLoader";
 import { useTranslation } from "react-i18next";
+import { updatedCollectionSelector } from "../store/selectors/mainSelectors";
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   flex: 1,

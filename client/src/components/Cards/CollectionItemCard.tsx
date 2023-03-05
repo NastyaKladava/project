@@ -194,7 +194,7 @@ const CollectionItemCard: React.FC<ICollectionItem> = ({ ...props }) => {
           <CardContent>
             {isLoggedIn && <CommentForm itemId={cardId} />}
             <CommentBox>
-              {commentsData.map((comment, index) => (
+              {commentsData?.map((comment, index) => (
                 <Comment key={index} {...comment} />
               ))}
             </CommentBox>

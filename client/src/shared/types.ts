@@ -6,10 +6,10 @@ import {
   SxProps,
   Theme,
 } from "@mui/material";
-import { Control } from "react-hook-form";
-import { ICollectionItem, IUser } from "../store/types";
+import { Control, FieldValues, UseFormHandleSubmit } from "react-hook-form";
+import { ICollectionField, ICollectionItem, IUser } from "../store/types";
 import { GridRowsProp } from "@mui/x-data-grid";
-import { EditorState } from "draft-js";
+import { ContentState, EditorState } from "draft-js";
 
 export interface IBasicFieldsProps {
   id: string;
@@ -22,11 +22,11 @@ export interface IBasicFieldsProps {
 
 export interface IFieldsProps extends IBasicFieldsProps {
   placeholder?: string;
-  autoComplete: string;
+  autoComplete?: string;
   autoFocus?: boolean;
   multiline?: boolean;
   variant?: "filled" | "outlined" | "standard";
-  defaultValue: string | string[] | number;
+  defaultValue: string | string[] | number | undefined;
   InputProps?: InputProps;
 }
 
@@ -81,12 +81,13 @@ export interface ITooltipButtonProps extends IIconButtonProps {
 export interface IFormProps {
   handleData: (event: React.FormEvent<HTMLDivElement>) => void;
   children: React.ReactNode;
+  // handleData: UseFormHandleSubmit<FieldValues>;
   sx?: SxProps<Theme>;
 }
 
 export interface IAutocompleteProps {
   name: string;
-  defaultValue: string | string[];
+  defaultValue: string | string[] | undefined;
   id: string;
   label: string;
   placeholder?: string;
@@ -99,7 +100,7 @@ export interface IAutocompleteProps {
 
 export interface IGroupedProps {
   name: string;
-  defaultValue: string | string[];
+  defaultValue: string | string[] | ICollectionField[] | undefined | null;
   id: string;
   label: string;
   placeholder?: string;
@@ -136,6 +137,7 @@ export interface ITextAreaFormattedProps {
 
 export interface IRichTextProps {
   control: Control;
+  defaultValue: EditorState | string | undefined | ContentState;
 }
 
 export interface IModalProps {
@@ -205,10 +207,10 @@ export interface IEditorFieldProps {
   onChange: (...event: any[]) => void;
 }
 
-export interface IFooterProps {
-  description: string;
-  title: string;
-}
+// export interface IFooterProps {
+//   description: string;
+//   title: string;
+// }
 
 export interface IMainHeaderProps {
   title: string;
@@ -256,4 +258,8 @@ export type TimerIdType = NodeJS.Timeout;
 
 export interface IRequireAuthProps {
   children: React.ReactNode;
+}
+
+export interface IColUpdateFormProps {
+  itemId: string;
 }

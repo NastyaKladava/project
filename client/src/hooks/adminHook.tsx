@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
-import localStorageKeys from "../shared/constants/localStorageKeys";
-import { usersSelector } from "../store/selectors/userSelector";
-import { setIsLoggedIn } from "../store/slices/userSlice";
+import { isColItemLoadingSelector } from "../store/selectors/collectionItemSelector";
+import {
+  isUserLoadingSelector,
+  usersSelector,
+} from "../store/selectors/userSelector";
 import { getUsers } from "../store/thunks";
 import { useAppDispatch, useAppSelector } from "./commonHooks";
 
 export const useAdmin = () => {
   const dispatch = useAppDispatch();
   const users = useAppSelector(usersSelector);
+  const isUsersLoadign = useAppSelector(isUserLoadingSelector);
 
   useEffect(() => {
     dispatch(getUsers());
   }, []);
 
-  return { users };
+  return { users, isUsersLoadign };
 };

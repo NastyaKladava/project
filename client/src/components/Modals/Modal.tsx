@@ -15,9 +15,9 @@ const StyledBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   padding: theme.spacing(15),
-  width: "30vw",
+  width: "35vw",
   [theme.breakpoints.up("md")]: {
-    width: "30vw",
+    width: "35vw",
   },
   [theme.breakpoints.down("md")]: {
     width: "60vw",

@@ -7,6 +7,7 @@ import { useRegister } from "../hooks/registerHook";
 import SignInForm from "../components/Forms/SignInForm";
 import AppCenterContainer from "../components/Containers/AppCenterContainer";
 import AppSnackbar from "../components/Popovers/AppSnackbar";
+import { useTranslation } from "react-i18next";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -17,6 +18,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 const SignIn: React.FC = () => {
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const curUser = useAppSelector(curUserSelector);
   const { isUserSuccess, errorUserMessage, successUserMessage } = useRegister();
 
@@ -26,7 +28,7 @@ const SignIn: React.FC = () => {
         <LockOutlined />
       </Avatar>
       <Typography component="h2" variant="h5">
-        Sign in
+        {t("sign_in")}
       </Typography>
       <SignInForm />
       {errorUserMessage && (

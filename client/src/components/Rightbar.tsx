@@ -34,7 +34,6 @@ const Rightbar: React.FC = () => {
   const { t } = useTranslation();
   const { latestItems } = useCollection();
 
-  console.log(latestItems);
   return latestItems.length === 0 ? (
     <StyledBoxNoItems>
       <Typography textAlign="center">{t("noItems")}</Typography>
