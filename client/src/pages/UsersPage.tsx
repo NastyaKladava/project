@@ -19,9 +19,9 @@ const UsersPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { users } = useAdmin();
 
-  // useEffect(() => {
-  //   dispatch(getUsers());
-  // });
+  useEffect(() => {
+    dispatch(getUsers());
+  });
 
   return (
     <AppContainer>
