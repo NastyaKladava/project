@@ -1,4 +1,4 @@
-import { IFieldsProps } from "../types";
+import { IFieldsProps, IValidatedFieldsProps } from "../types";
 
 export const sigInFields: IFieldsProps[] = [
   {
@@ -21,7 +21,7 @@ export const sigInFields: IFieldsProps[] = [
   },
 ];
 
-export const sigUpFields: IFieldsProps[] = [
+export const sigUpFields: IValidatedFieldsProps[] = [
   {
     id: "firstName",
     label: "First Name",
@@ -30,6 +30,8 @@ export const sigUpFields: IFieldsProps[] = [
     autoFocus: true,
     defaultValue: "",
     errorMessage: "First Name is required",
+    maxLength: 20,
+    minLength: 5,
   },
   {
     id: "lastName",
@@ -38,6 +40,8 @@ export const sigUpFields: IFieldsProps[] = [
     autoComplete: "family-name",
     defaultValue: "",
     errorMessage: "Last Name is required",
+    maxLength: 20,
+    minLength: 5,
   },
   {
     id: "email",
@@ -46,6 +50,8 @@ export const sigUpFields: IFieldsProps[] = [
     autoComplete: "email",
     defaultValue: "",
     errorMessage: "Email is required",
+    maxLength: 20,
+    minLength: 7,
   },
 ];
 

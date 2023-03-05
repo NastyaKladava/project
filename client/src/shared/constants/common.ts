@@ -35,5 +35,5 @@ export const EDITOROPTIONS = [
 ];
 
 export const SNACKBARHIDE = 2000;
-export const SNACKBARTIMER = 3000;
-export const TIMERDELAY = 3000;
+export const SNACKBARTIMER = 2000;
+export const TIMERDELAY = 2000;

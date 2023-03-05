@@ -21,6 +21,7 @@ const TagsBox: React.FC<ITagsBoxPtops> = ({ tags }) => {
           underline="none"
           sx={{ color: deepPurple[500] }}
           variant="body2"
+          component="button"
         >
           {tag}
         </Link>

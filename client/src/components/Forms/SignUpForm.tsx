@@ -12,6 +12,7 @@ import { isShowPasswordSelector } from "../../store/selectors/mainSelectors";
 import { setShowPassword } from "../../store/slices/mainSlice";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import ValidatedFormField from "./ValidatedFormField";
 
 const SignUpForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -55,9 +56,14 @@ const SignUpForm: React.FC = () => {
   return (
     <Form handleData={handleSubmit(onSubmit)}>
       {sigUpFields.map((field) => (
-        <FormField key={field.id} {...field} control={control} />
+        <ValidatedFormField
+          key={field.id}
+          {...field}
+          control={control}
+          errors={errors?.[field.name]?.type}
+        />
       ))}
-      <FormField
+      <ValidatedFormField
         id="password"
         name="password"
         label="Password"
@@ -67,10 +73,12 @@ const SignUpForm: React.FC = () => {
         control={control}
         type={passwordType}
         InputProps={IPasswordInputProps}
+        maxLength={20}
+        minLength={5}
       />
       <Button
         type="submit"
-        disabled={!isValid}
+        // disabled={!isValid}
         fullWidth
         variant="contained"
         sx={{ mt: 3, mb: 5 }}

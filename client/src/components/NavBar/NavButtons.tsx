@@ -50,6 +50,7 @@ const NavButtons: React.FC = () => {
             variant="outlined"
             color="inherit"
             handler={() => navigate(`${routes.SIGNUP}`)}
+            sx={{ display: { xs: "none", md: "inline-block" } }}
           >
             {t("sign_up")}
           </AppButton>

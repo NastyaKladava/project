@@ -6,7 +6,6 @@ import { setShowColItemUpdateModal } from "../../store/slices/mainSlice";
 import AppModal from "./Modal";
 import { useTranslation } from "react-i18next";
 import UpdateItemForm from "../Forms/CollectionItemUpdateForm";
-import { setUpdatedColItem } from "../../store/slices/collectionItemSlice";
 
 const ColItemUpdateModal: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -14,10 +13,7 @@ const ColItemUpdateModal: React.FC = () => {
   const isShowColItemUpdateModal = useAppSelector(
     isShowItemUpdateModalSelector
   );
-  const handleClose = () => {
-    dispatch(setShowColItemUpdateModal(false));
-    dispatch(setUpdatedColItem(undefined));
-  };
+  const handleClose = () => dispatch(setShowColItemUpdateModal(false));
 
   return (
     <AppModal open={isShowColItemUpdateModal} handleClose={handleClose}>

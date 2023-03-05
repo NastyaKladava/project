@@ -44,7 +44,7 @@ const CollectionPage: React.FC = () => {
       {successColItemMessage && (
         <AppSnackbar message={successColItemMessage} severity="success" />
       )}
-      {/* <ColItemUpdateModal /> */}
+      <ColItemUpdateModal />
     </>
   );
 };

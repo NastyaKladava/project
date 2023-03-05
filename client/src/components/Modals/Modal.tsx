@@ -17,12 +17,13 @@ const StyledBox = styled(Box)(({ theme }) => ({
   padding: theme.spacing(15),
   width: "35vw",
   [theme.breakpoints.up("md")]: {
-    width: "35vw",
+    width: "40vw",
+    height: "auto",
   },
   [theme.breakpoints.down("md")]: {
-    width: "60vw",
+    width: "50vw",
+    height: "80vh",
   },
-  height: "auto",
   borderRadius: theme.spacing(5),
   backgroundColor: theme.palette.background.default,
   color: theme.palette.text.primary,

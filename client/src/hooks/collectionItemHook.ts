@@ -16,6 +16,7 @@ import { curUserSelector } from "../store/selectors/userSelector";
 import {
   setColItemError,
   setColItemSuccess,
+  setUpdatedColItem,
 } from "../store/slices/collectionItemSlice";
 import {
   setShowColItemUpdateModal,
@@ -56,6 +57,7 @@ export const useCollectionItem = () => {
       timerId = setTimeout(() => {
         dispatch(setColItemSuccess(false));
         dispatch(setShowColItemUpdateModal(false));
+        dispatch(setUpdatedColItem(undefined));
       }, SNACKBARTIMER);
     }
 

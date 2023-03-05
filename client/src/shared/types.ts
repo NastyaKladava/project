@@ -6,7 +6,16 @@ import {
   SxProps,
   Theme,
 } from "@mui/material";
-import { Control, FieldValues, UseFormHandleSubmit } from "react-hook-form";
+import {
+  Control,
+  FieldError,
+  FieldErrors,
+  FieldErrorsImpl,
+  FieldValues,
+  Merge,
+  UseFormHandleSubmit,
+  ValidationRule,
+} from "react-hook-form";
 import { ICollectionField, ICollectionItem, IUser } from "../store/types";
 import { GridRowsProp } from "@mui/x-data-grid";
 import { ContentState, EditorState } from "draft-js";
@@ -30,6 +39,12 @@ export interface IFieldsProps extends IBasicFieldsProps {
   InputProps?: InputProps;
 }
 
+export interface IValidatedFieldsProps extends IFieldsProps {
+  maxLength: number;
+  minLength: number;
+  errors?: FieldErrorType;
+}
+
 export interface ICheckboxProps extends IBasicFieldsProps {
   defaultValue: boolean;
 }
@@ -43,6 +58,14 @@ export interface ISignInInput {
   email: string;
   password: string;
 }
+
+export type FieldErrorType =
+  | string
+  | number
+  | FieldError
+  | Partial<{ type: string | number; message: string }>
+  | Merge<FieldError, FieldErrorsImpl<any>>
+  | undefined;
 
 export interface IButtonGroupProps {
   variant: "outlined" | "contained" | "text";

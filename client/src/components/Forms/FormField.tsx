@@ -3,6 +3,7 @@ import { TextField } from "@mui/material";
 import { IFieldsProps } from "../../shared/types";
 import { Controller } from "react-hook-form";
 import { ICollectionField } from "../../store/types";
+import { getValidationMessage } from "../../utils/getValidationMessage";
 
 const FormField: React.FC<IFieldsProps> = ({
   id,
@@ -41,6 +42,7 @@ const FormField: React.FC<IFieldsProps> = ({
           variant={variant}
           error={error ? true : false}
           helperText={error ? errorMessage : null}
+          //helperText={error ? getValidationMessage(errors.name) : null}
           InputProps={InputProps}
         />
       )}

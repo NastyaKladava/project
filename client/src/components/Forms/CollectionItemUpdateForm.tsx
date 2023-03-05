@@ -43,9 +43,9 @@ const UpdateItemForm: React.FC = () => {
       updatedItem: data,
     };
     dispatch(updateColitem(updatedData));
-    dispatch(setUpdatedColItem(undefined));
-    dispatch(setShowColItemUpdateModal(false));
     reset();
+    //dispatch(setUpdatedColItem(undefined));
+    dispatch(setShowColItemUpdateModal(false));
   };
 
   return (

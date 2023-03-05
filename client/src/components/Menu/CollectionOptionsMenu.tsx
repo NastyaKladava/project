@@ -10,15 +10,11 @@ import {
   setShowColUpdateModal,
   setUpdatedCollection,
 } from "../../store/slices/mainSlice";
-import {
-  collectionsDataSelector,
-  trendCollectionSelector,
-} from "../../store/selectors/collectionSelector";
+import { collectionsDataSelector } from "../../store/selectors/collectionSelector";
 import {
   setImageUploadProgress,
   setImageUrl,
 } from "../../store/slices/collectionSlice";
-import { setUpdatedColItem } from "../../store/slices/collectionItemSlice";
 
 const CollectionOptionsMenu: React.FC<IOptionsMenuProps> = ({
   anchorEl,

@@ -10,6 +10,7 @@ const AppButton: React.FC<IButtonProps> = ({
   variant,
   size,
   color,
+  sx,
 }) => {
   return (
     <Button
@@ -19,6 +20,7 @@ const AppButton: React.FC<IButtonProps> = ({
       variant={variant}
       size={size}
       color={color}
+      sx={sx}
     >
       {children}
     </Button>
