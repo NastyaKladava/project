@@ -33,13 +33,9 @@ const UpdateItemForm: React.FC = () => {
 
   const onSubmit = (data: any) => {
     const tagsArray: string[] = data.itemTags.split(",");
-    if (isAdmin) {
-      data.userId = currentCollection?.userId;
-      data.itemAuthor = currentCollection?.collectionAuthor;
-    } else {
-      data.userId = currentUser?.id;
-      data.itemAuthor = currentUser?.firstName;
-    }
+
+    data.userId = currentUser?.id;
+    data.itemAuthor = currentUser?.firstName;
     data.itemTags = tagsArray;
     data.collectionId = currentCollection?._id;
     data.fromCollection = currentCollection?.collectionTitle;
