@@ -91,7 +91,7 @@ export const collectionFieldsValues = [
   { title: "Comment", type: "text" },
   { title: "About author", type: "text" },
   { title: "Publication date", type: "date" },
-  { title: "Harvest Year", type: "boolean" },
+  { title: "Harvest Year", type: "date" },
   { title: "Is read", type: "boolean" },
   { title: "Is finished", type: "boolean" },
   { title: "Is tried", type: "boolean" },
