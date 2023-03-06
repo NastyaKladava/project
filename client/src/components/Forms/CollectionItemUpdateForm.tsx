@@ -20,19 +20,28 @@ const StyledForm = styled(Box)(({ theme }) => ({
 const UpdateItemForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const { currentFields, currentCollection, currentUser, updatedColItem } =
-    useCollectionItem();
+  const {
+    currentFields,
+    currentCollection,
+    currentUser,
+    updatedColItem,
+    isAdmin,
+  } = useCollectionItem();
   const tagsDefaultValue = updatedColItem?.itemTags?.join(",");
 
   const { handleSubmit, reset, control } = useForm();
 
   const onSubmit = (data: any) => {
     const tagsArray: string[] = data.itemTags.split(",");
-    data.userId = currentCollection?.userId;
-    data.itemAuthor = currentCollection?.collectionAuthor;
+    if (isAdmin) {
+      data.userId = currentCollection?.userId;
+      data.itemAuthor = currentCollection?.collectionAuthor;
+    } else {
+      data.userId = currentUser?.id;
+      data.itemAuthor = currentUser?.firstName;
+    }
     data.itemTags = tagsArray;
     data.collectionId = currentCollection?._id;
-    // data.itemAuthor = currentUser?.firstName;
     data.fromCollection = currentCollection?.collectionTitle;
 
     const updatedData: IUpdateColItemRequest = {

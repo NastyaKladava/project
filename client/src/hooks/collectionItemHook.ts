@@ -12,7 +12,10 @@ import {
   updatedColItemSelector,
 } from "../store/selectors/collectionItemSelector";
 import { curCollectionSelector } from "../store/selectors/collectionSelector";
-import { curUserSelector } from "../store/selectors/userSelector";
+import {
+  curUserSelector,
+  isAdminSelector,
+} from "../store/selectors/userSelector";
 import {
   setColItemError,
   setColItemSuccess,
@@ -41,6 +44,7 @@ export const useCollectionItem = () => {
   const currentUser = useAppSelector(curUserSelector);
   const successColItemMessage = useAppSelector(successColItemMessageSelector);
   const updatedColItem = useAppSelector(updatedColItemSelector);
+  const isAdmin = useAppSelector(isAdminSelector);
 
   useEffect(() => {
     if (pathname === `/collection/${id}`) {
@@ -93,5 +97,6 @@ export const useCollectionItem = () => {
     currentUser,
     successColItemMessage,
     updatedColItem,
+    isAdmin,
   };
 };

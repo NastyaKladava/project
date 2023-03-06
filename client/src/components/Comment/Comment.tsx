@@ -10,6 +10,8 @@ const StyledBox = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
+  flexWrap: "wrap",
+  //overflowY: "hidden",
 }));
 
 const Comment: React.FC<IColItemComment> = ({
@@ -32,7 +34,7 @@ const Comment: React.FC<IColItemComment> = ({
       </Grid>
       <Grid item xs={10}>
         <StyledBox>
-          <Typography variant="h6">{commentAuthor}</Typography>
+          <Typography variant="subtitle2">{commentAuthor}</Typography>
           <Typography variant="body2">
             {createdAt && format(createdAt)}
           </Typography>
